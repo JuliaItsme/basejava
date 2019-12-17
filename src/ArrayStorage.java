@@ -12,11 +12,6 @@ public class ArrayStorage {
     }
 
     void save(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i] != null) {
-                size++;
-            }
-        }
         storage[size] = resume;
         size++;
     }
@@ -37,6 +32,8 @@ public class ArrayStorage {
                     storage[k] = storage[k + 1];
                 }
                 size--;
+                storage[size] =null;
+                break;
             }
         }
     }
