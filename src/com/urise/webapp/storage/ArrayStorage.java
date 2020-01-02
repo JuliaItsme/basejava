@@ -12,45 +12,47 @@ public class ArrayStorage {
     private int size = 0;
 
     public void clear() {
-
         Arrays.fill(storage, 0, size, null);
+        size = 0;
     }
 
     public void update(Resume resume) {
-        //TODO check if resume present
         int counter = 0;
         for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid() == resume.getUuid()) {
+            if (storage[i].getUuid().equals(resume.getUuid())) {
                 storage[i] = resume;
                 counter++;
                 break;
             }
         }
-        if(counter == 0) {
-            System.out.println("Error");
+        if (counter == 0) {
+            System.out.println("Error. Resume don't found.");
         }
     }
 
-
     public void save(Resume resume) {
-        //TODO check if resume not present
         int counter = 0;
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid() == resume.getUuid()) {
-                System.out.println("Error");
-                counter++;
-                break;
+        if (size == storage.length) {
+            System.out.println("Error. The array is full.");
+
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (storage[i].getUuid().equals(resume.getUuid())) {
+                    System.out.println("Error. There is such resume already.");
+                    counter++;
+                    break;
+                }
             }
-        }
-        if(counter == 0) {
-            storage[size] = resume;
-            size++;
+            if (counter == 0) {
+                storage[size] = resume;
+                size++;
+            }
         }
     }
 
     public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid() == uuid) {
+            if (storage[i].getUuid().equals(uuid)) {
                 return storage[i];
             }
         }
@@ -58,18 +60,17 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        //TODO check if resume present
         int counter = 0;
         for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid() == uuid) {
+            if (storage[i].getUuid().equals(uuid)) {
                 storage[i] = storage[size - 1];
                 storage[size - 1] = null;
                 counter++;
                 size--;
             }
         }
-        if(counter == 0) {
-            System.out.println("Error");
+        if (counter == 0) {
+            System.out.println("Error. Resume don't found.");
         }
     }
 
