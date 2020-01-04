@@ -16,58 +16,50 @@ public class ArrayStorage {
         size = 0;
     }
 
-    public void update(Resume resume) {
-        if (checkArray(resume)) {
-            storage[i] = resume;
-        } else {
-            System.out.println("Error. Resume don't found.");
-        }
-    }
-
     public void save(Resume resume) {
         if (size == storage.length) {
             System.out.println("Error. The array is full.");
-        } else if (!checkArray(resume)) {
+        } else if (checkArray(resume)) {
             storage[size] = resume;
             size++;
-        } else {
-            System.out.println("Error. There is such resume already.");
+
         }
     }
 
     private boolean checkArray(Resume resume) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(resume.getUuid())) {
-                return true;
+                System.out.println("Error. There is such resume already.");
+                return false;
             }
         }
-        return false;
+        return true;
+    }
+
+    public void update(Resume resume) {
+        String uuid = resume.getUuid();
+        storage[checkArray(uuid)] = resume;
     }
 
     public Resume get(String uuid) {
-        if (checkGet(uuid)) {
-            return storage[i];
-        }
-        return null;
+        return storage[checkArray(uuid)];
     }
 
     public void delete(String uuid) {
-        if (checkGet(uuid)) {
-            storage[i] = storage[size - 1];
-            storage[size - 1] = null;
-            size--;
-        } else {
-            System.out.println("Error. Resume don't found.");
-        }
+        storage[checkArray(uuid)] = storage[size - 1];
+        storage[size - 1] = null;
+        size--;
     }
 
-    public boolean checkGet(String uuid) {
+    private int checkArray(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
-                return true;
+                return i;
+            } else {
+                System.out.println("Error. Resume don't found.");
             }
         }
-        return false;
+        return 0;
     }
 
     /**
