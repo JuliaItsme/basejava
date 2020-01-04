@@ -17,59 +17,57 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
+        String uuid = resume.getUuid();
         if (size == storage.length) {
             System.out.println("Error. The array is full.");
-        } else if (checkArray(resume)) {
+        } else if (findIndex(uuid) == -1) {
+            System.out.println("Error. There is such resume already.");
+        } else {
             storage[size] = resume;
             size++;
-
         }
     }
 
-    private boolean checkArray(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(resume.getUuid())) {
-                System.out.println("Error. There is such resume already.");
-                return false;
-            }
+    public Resume get(String uuid) {
+        if (findIndex(uuid) == -1) {
+            System.out.println("Error. Resume don't found.");
         }
-        return true;
+        return storage[findIndex(uuid)];
     }
 
     public void update(Resume resume) {
         String uuid = resume.getUuid();
-        storage[checkArray(uuid)] = resume;
-    }
-
-    public Resume get(String uuid) {
-        return storage[checkArray(uuid)];
+        if (findIndex(uuid) != -1) {
+            storage[findIndex(uuid)] = resume;
+        } else {
+            System.out.println("Error. Resume don't found.");
+        }
     }
 
     public void delete(String uuid) {
-        storage[checkArray(uuid)] = storage[size - 1];
-        storage[size - 1] = null;
-        size--;
-    }
-
-    private int checkArray(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return i;
-            } else {
-                System.out.println("Error. Resume don't found.");
-            }
+        if (findIndex(uuid) != -1) {
+            storage[findIndex(uuid)] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+        } else {
+            System.out.println("Error. Resume don't found.");
         }
-        return 0;
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }
 
     public int size() {
         return size;
+    }
+
+    private int findIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
