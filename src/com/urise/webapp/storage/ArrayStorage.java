@@ -22,32 +22,35 @@ public class ArrayStorage {
         if (size == storage.length) {
             System.out.println("Error. The array is full.");
         } else if (findIndex(uuid) == -1) {
-            System.out.println("Error. There is such resume already.");
-        } else {
             storage[size] = resume;
             size++;
+        } else {
+            System.out.println("Error. There is such resume already.");
         }
     }
 
     public Resume get(String uuid) {
-        if (findIndex(uuid) == -1) {
+        int index = findIndex(uuid);
+        if (index == -1) {
             System.out.println("Error. Resume don't found.");
         }
-        return storage[findIndex(uuid)];
+        return storage[index];
     }
 
     public void update(Resume resume) {
         String uuid = resume.getUuid();
-        if (findIndex(uuid) != -1) {
-            storage[findIndex(uuid)] = resume;
+        int index = findIndex(uuid);
+        if (index != -1) {
+            storage[index] = resume;
         } else {
             System.out.println("Error. Resume don't found.");
         }
     }
 
     public void delete(String uuid) {
-        if (findIndex(uuid) != -1) {
-            storage[findIndex(uuid)] = storage[size - 1];
+        int index = findIndex(uuid);
+        if (index != -1) {
+            storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         } else {
