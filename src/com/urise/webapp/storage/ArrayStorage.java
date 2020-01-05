@@ -31,10 +31,11 @@ public class ArrayStorage {
 
     public Resume get(String uuid) {
         int index = findIndex(uuid);
-        if (index == -1) {
-            System.out.println("Error. Resume don't found.");
+        if (index != -1) {
+            return storage[index];
         }
-        return storage[index];
+        System.out.println("Error. Resume don't found.");
+        return null;
     }
 
     public void update(Resume resume) {
