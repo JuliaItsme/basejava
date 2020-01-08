@@ -7,7 +7,7 @@ import com.urise.webapp.storage.ArrayStorage;
  * Test for your com.urise.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         final Resume r1 = new Resume();
