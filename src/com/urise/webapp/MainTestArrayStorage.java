@@ -39,11 +39,13 @@ public class MainTestArrayStorage {
         ARRAY_STO.save(r2);
         ARRAY_STO.save(r3);
 
+        ARRAY_STO.update(r2);
+
         printAllTwo();
         ARRAY_STO.delete(r2.getUuid());
         printAllTwo();
 
-        ARRAY_STO.update(r2);
+
         System.out.println("Get r1: " + ARRAY_STO.get(r2.getUuid()));
 
         ARRAY_STO.clear();
