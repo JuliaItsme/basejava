@@ -2,7 +2,7 @@ package com.urise.webapp.storage;
 
 public class ArrayStorageTest extends AbstractArrayStorageTest {
 
-    protected ArrayStorageTest() {
+    public ArrayStorageTest() {
         super(new ArrayStorage());
     }
 }

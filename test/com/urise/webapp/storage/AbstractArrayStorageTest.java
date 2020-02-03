@@ -38,6 +38,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void clear() throws Exception {
+        storage.clear();
         Assert.assertEquals(0, storage.size());
     }
 
@@ -49,14 +50,14 @@ public abstract class AbstractArrayStorageTest {
         resume[1] = RESUME_2;
         resume[2] = RESUME_3;
         Assert.assertArrayEquals(expected, resume);
-        Assert.assertEquals(3, storage.size());
+        Assert.assertEquals(3, expected.length);
     }
 
     @Test
     public void update() throws Exception {
-        Resume resume = new Resume("uuid3");
+        Resume resume = new Resume(UUID_3);
         storage.update(resume);
-        Assert.assertSame(storage.get(UUID_3), (resume));
+        Assert.assertSame(resume, storage.get(UUID_3));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -78,8 +79,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverflow() throws Exception {
+        storage.clear();
         try {
-            for (int i = 4; i < 10001; i++) {
+            for (int i = 0; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 String st = "uuid" + i;
                 storage.save(new Resume(st));
             }
