@@ -10,17 +10,17 @@ import java.util.Arrays;
 
 public interface Storage {
 
-    void clear();
+    void save(Resume resume);
 
     void update(Resume resume);
 
-    void save(Resume resume);
-
     Resume get(String uuid);
+
+    Resume[] getAll();
 
     void delete(String uuid);
 
-    Resume[] getAll();
+    void clear();
 
     int size();
 }
