@@ -3,7 +3,7 @@ package com.urise.webapp;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.ListStorage;
 
-public class MainArrayList {
+public class MainListStorage {
     static final ListStorage LIST_STORAGE = new ListStorage();
 
     public static void main(String[] args) {
@@ -15,16 +15,18 @@ public class MainArrayList {
         LIST_STORAGE.save(r2);
         LIST_STORAGE.save(r3);
 
-        LIST_STORAGE.update(r1);
-
-        System.out.println("Get r1: " + LIST_STORAGE.get(r1.getUuid()) + "\n");
         printAll();
         System.out.println("Size: " + LIST_STORAGE.size() + "\n");
+
+        LIST_STORAGE.update(r1);
+
+        System.out.println("Get r1: " + LIST_STORAGE.get(r1.getUuid()));
         // System.out.println("Get dummy: " + LIST_STORAGE.get("dummy") + "\n");
 
         LIST_STORAGE.delete(r1.getUuid());
         printAll();
         System.out.println("Size: " + LIST_STORAGE.size() + "\n");
+        // System.out.println("Get r1: " + LIST_STORAGE.get(r1.getUuid()));
 
         LIST_STORAGE.clear();
         printAll();

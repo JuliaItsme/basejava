@@ -8,45 +8,49 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        Integer index = getIndex(resume.getUuid());
-        if (index != null) {
-            throw new ExistStorageException(resume.getUuid());
-        } else {
-            int i = -1;
-            addElement(resume, i);
-        }
+        addElement(resume, getExistedStorageKey(resume.getUuid()));
     }
 
     @Override
     public void update(Resume resume) {
-        setElement(resume, notExistException(resume.getUuid()));
+        setElement(resume, getNotExistedStorageKey(resume.getUuid()));
     }
 
     @Override
     public Resume get(String uuid) {
-        return getElement(notExistException(uuid));
+        return getElement(getNotExistedStorageKey(uuid));
     }
 
     @Override
     public void delete(String uuid) {
-        deleteElement(notExistException(uuid));
+        deleteElement(getNotExistedStorageKey(uuid));
     }
 
-    private int notExistException(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
+    private Integer getNotExistedStorageKey(String uuid) {
+        Integer storageKey = getKey(uuid);
+        if (!existKey(storageKey)) {
             throw new NotExistStorageException(uuid);
         }
-        return index;
+        return storageKey;
     }
 
-    protected abstract Integer getIndex(String uuid);
+    private Integer getExistedStorageKey(String uuid) {
+        Integer storageKey = getKey(uuid);
+        if (existKey(storageKey)) {
+            throw new ExistStorageException(uuid);
+        }
+        return storageKey;
+    }
 
-    protected abstract void addElement(Resume resume, int index);
+    protected abstract Integer getKey(String uuid);
 
-    protected abstract void setElement(Resume resume, int index);
+    protected abstract boolean existKey(Integer storageKey);
 
-    protected abstract Resume getElement(int index);
+    protected abstract void addElement(Resume resume, Integer index);
 
-    protected abstract void deleteElement(int index);
+    protected abstract void setElement(Resume resume, Integer index);
+
+    protected abstract Resume getElement(Integer index);
+
+    protected abstract void deleteElement(Integer index);
 }
