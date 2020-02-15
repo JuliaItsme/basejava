@@ -60,8 +60,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    protected abstract int getIndex(String uuid);
-
     protected abstract void insertElement(Resume resume, int index);
 
     protected abstract void fillDeletedElement(int index);

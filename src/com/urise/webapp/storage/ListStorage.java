@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    public List<Resume> arrayList = new ArrayList<>();
+    private List<Resume> arrayList = new ArrayList<>();
 
     @Override
     public int size() {
@@ -24,14 +24,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected int getIndex(String uuid) {
-        //Resume searchKey = new Resume(uuid);
+    protected Integer getIndex(String uuid) {
         for (int i = 0; i < arrayList.size(); i++) {
             if (uuid.equals(arrayList.get(i).getUuid())) {
                 return i;
             }
         }
-        return -1;
+        return null;
     }
 
     @Override
