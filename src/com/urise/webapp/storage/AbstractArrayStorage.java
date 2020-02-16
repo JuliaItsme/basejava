@@ -34,33 +34,33 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean existKey(Integer index) {
-        return index >= 0;
+    protected boolean existKey(Object index) {
+        return (Integer)index >= 0;
     }
 
     @Override
-    protected void addElement(Resume resume, Integer index) {
+    protected void saveElement(Resume resume, Object  index) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else {
-            insertElement(resume, index);
+            insertElement(resume, (Integer) index);
             size++;
         }
     }
 
     @Override
-    protected void setElement(Resume resume, Integer index) {
-        storage[index] = resume;
+    protected void updateElement(Resume resume, Object  index) {
+        storage[(Integer) index] = resume;
     }
 
     @Override
-    protected Resume getElement(Integer index) {
-        return storage[index];
+    protected Resume getElement(Object  index) {
+        return storage[(Integer) index];
     }
 
     @Override
-    protected void deleteElement(Integer index) {
-        fillDeletedElement(index);
+    protected void deleteElement(Object  index) {
+        fillDeletedElement((Integer) index);
         storage[size - 1] = null;
         size--;
     }

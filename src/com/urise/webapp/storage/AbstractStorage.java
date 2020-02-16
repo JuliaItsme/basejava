@@ -8,12 +8,12 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        addElement(resume, getExistedStorageKey(resume.getUuid()));
+        saveElement(resume, getExistedStorageKey(resume.getUuid()));
     }
 
     @Override
     public void update(Resume resume) {
-        setElement(resume, getNotExistedStorageKey(resume.getUuid()));
+        updateElement(resume, getNotExistedStorageKey(resume.getUuid()));
     }
 
     @Override
@@ -44,13 +44,13 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Integer getKey(String uuid);
 
-    protected abstract boolean existKey(Integer storageKey);
+    protected abstract boolean existKey(Object storageKey);
 
-    protected abstract void addElement(Resume resume, Integer index);
+    protected abstract void saveElement(Resume resume, Object storageKey);
 
-    protected abstract void setElement(Resume resume, Integer index);
+    protected abstract void updateElement(Resume resume, Object storageKey);
 
-    protected abstract Resume getElement(Integer index);
+    protected abstract Resume getElement(Object storageKey);
 
-    protected abstract void deleteElement(Integer index);
+    protected abstract void deleteElement(Object storageKey);
 }

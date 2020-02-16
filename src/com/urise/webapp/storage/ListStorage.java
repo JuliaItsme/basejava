@@ -34,27 +34,27 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean existKey(Integer storageKey) {
+    protected boolean existKey(Object storageKey) {
         return storageKey != null;
     }
 
     @Override
-    protected void addElement(Resume resume, Integer storageKey) {
+    protected void saveElement(Resume resume, Object storageKey) {
         arrayList.add(resume);
     }
 
     @Override
-    protected void setElement(Resume resume, Integer storageKey) {
-        arrayList.set(storageKey, resume);
+    protected void updateElement(Resume resume, Object storageKey) {
+        arrayList.set((Integer) storageKey, resume);
     }
 
     @Override
-    protected Resume getElement(Integer storageKey) {
-        return arrayList.get(storageKey);
+    protected Resume getElement(Object storageKey) {
+        return arrayList.get((Integer)storageKey);
     }
 
     @Override
-    protected void deleteElement(Integer storageKey) {
-        arrayList.remove(storageKey.intValue());
+    protected void deleteElement(Object storageKey) {
+        arrayList.remove(((Integer)storageKey).intValue());
     }
 }
