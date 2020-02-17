@@ -26,16 +26,16 @@ public abstract class AbstractStorage implements Storage {
         deleteElement(getNotExistedStorageKey(uuid));
     }
 
-    private Integer getNotExistedStorageKey(String uuid) {
-        Integer storageKey = (Integer) getKey(uuid);
+    private Object getNotExistedStorageKey(String uuid) {
+        Object storageKey = getKey(uuid);
         if (!existKey(storageKey)) {
             throw new NotExistStorageException(uuid);
         }
         return storageKey;
     }
 
-    private Integer getExistedStorageKey(String uuid) {
-        Integer storageKey = (Integer) getKey(uuid);
+    private Object getExistedStorageKey(String uuid) {
+        Object storageKey = getKey(uuid);
         if (existKey(storageKey)) {
             throw new ExistStorageException(uuid);
         }
