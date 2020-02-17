@@ -15,7 +15,6 @@ public class MapStorage extends AbstractStorage {
         return hashMap.size();
     }
 
-    //Collection<V> values(): возвращает набор всех значений отображения
     @Override
     public Resume[] getAll() {
         List<Resume> arrayList = new ArrayList<>(hashMap.values());
@@ -30,12 +29,11 @@ public class MapStorage extends AbstractStorage {
     @Override
     protected String getKey(String uuid) {
         return uuid;
-
     }
 
     @Override
     protected boolean existKey(Object storageKey) {
-        return hashMap.get(storageKey) != null;
+        return hashMap.containsKey((String) storageKey);
     }
 
     @Override
@@ -50,11 +48,11 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Resume getElement(Object storageKey) {
-        return hashMap.get(storageKey);
+        return hashMap.get((String) storageKey);
     }
 
     @Override
     protected void deleteElement(Object storageKey) {
-        hashMap.remove(storageKey);
+        hashMap.remove((String) storageKey);
     }
 }
