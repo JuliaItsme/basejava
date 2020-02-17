@@ -28,13 +28,9 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Integer getKey(String uuid) {
-        for (int i = 0; i < hashMap.size(); i++) {
-            if (uuid.equals(hashMap.get(uuid))){
-                return i;
-            }
-        }
-        return null;
+    protected String getKey(String uuid) {
+        return uuid;
+
     }
 
     @Override
