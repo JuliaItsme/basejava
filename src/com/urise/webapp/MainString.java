@@ -3,6 +3,7 @@ package com.urise.webapp;
 public class MainString {
 
     public static void main(String[] args) {
+
         String[] strArray = new String[]{"1", "2", "3", "4", "5"};
         //String result = "";
         StringBuilder sb = new StringBuilder();
