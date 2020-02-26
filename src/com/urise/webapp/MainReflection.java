@@ -5,11 +5,12 @@ import com.urise.webapp.model.Resume;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.UUID;
 
 public class MainReflection {
 
     public static void main(String[] args) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        Resume resume = new Resume();
+        Resume resume = new Resume(UUID.randomUUID().toString());
         Class<? extends Resume> resumeClass = resume.getClass();
         Field field = resumeClass.getDeclaredFields()[0];
         field.setAccessible(true);

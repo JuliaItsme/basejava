@@ -9,22 +9,7 @@ public class ListStorage extends AbstractStorage {
     private List<Resume> arrayList = new ArrayList<>();
 
     @Override
-    public int size() {
-        return arrayList.size();
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return arrayList.toArray(new Resume[arrayList.size()]);
-    }
-
-    @Override
-    public void clear() {
-        arrayList.clear();
-    }
-
-    @Override
-    protected Integer getKey(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < arrayList.size(); i++) {
             if (uuid.equals(arrayList.get(i).getUuid())) {
                 return i;
@@ -34,27 +19,42 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean existKey(Object storageKey) {
-        return storageKey != null;
+    protected boolean isExist(Object searchKey) {
+        return searchKey != null;
     }
 
     @Override
-    protected void saveElement(Resume resume, Object storageKey) {
+    protected void doSave(Resume resume, Object searchKey) {
         arrayList.add(resume);
     }
 
     @Override
-    protected void updateElement(Resume resume, Object storageKey) {
-        arrayList.set((Integer) storageKey, resume);
+    protected void doUpdate(Resume resume, Object searchKey) {
+        arrayList.set((Integer) searchKey, resume);
     }
 
     @Override
-    protected Resume getElement(Object storageKey) {
-        return arrayList.get((Integer)storageKey);
+    protected Resume doGet(Object searchKey) {
+        return arrayList.get((Integer)searchKey);
     }
 
     @Override
-    protected void deleteElement(Object storageKey) {
-        arrayList.remove(((Integer)storageKey).intValue());
+    protected void doDelete(Object searchKey) {
+        arrayList.remove(((Integer)searchKey).intValue());
+    }
+
+    @Override
+    public int size() {
+        return arrayList.size();
+    }
+
+    @Override
+    public List<Resume> getAllSorted() {
+        return arrayList;
+    }
+
+    @Override
+    public void clear() {
+        arrayList.clear();
     }
 }

@@ -1,8 +1,11 @@
 package com.urise.webapp;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class MainString {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         String[] strArray = new String[]{"1", "2", "3", "4", "5"};
         //String result = "";
