@@ -14,7 +14,7 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object resumeKey) {
-        return hashMap.containsKey(resumeKey);
+        return resumeKey != null;
     }
 
     @Override
@@ -34,8 +34,7 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> doGetAll() {
-        List<Resume> arrayList = new ArrayList<>(hashMap.values());
-        return arrayList;
+        return new ArrayList<>(hashMap.values());
     }
 
     @Override
