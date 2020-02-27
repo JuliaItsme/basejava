@@ -6,10 +6,6 @@ import com.urise.webapp.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Array based storage for Resumes
- */
-
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
 
@@ -25,12 +21,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     public int size() {
         return size;
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> list = Arrays.asList(Arrays.copyOfRange(storage, 0, size));
-        return list;
     }
 
     @Override
@@ -62,6 +52,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     protected Resume doGet(Object index) {
         return storage[(Integer) index];
+    }
+
+    @Override
+    protected List<Resume> doGetAll() {
+        List<Resume> list = Arrays.asList(Arrays.copyOfRange(storage, 0, size));
+        return list;
     }
 
     @Override

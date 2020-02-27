@@ -35,22 +35,22 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected Resume doGet(Object searchKey) {
-        return arrayList.get((Integer)searchKey);
+        return arrayList.get((Integer) searchKey);
+    }
+
+    @Override
+    protected List<Resume> doGetAll() {
+        return arrayList;
     }
 
     @Override
     protected void doDelete(Object searchKey) {
-        arrayList.remove(((Integer)searchKey).intValue());
+        arrayList.remove(((Integer) searchKey).intValue());
     }
 
     @Override
     public int size() {
         return arrayList.size();
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        return arrayList;
     }
 
     @Override

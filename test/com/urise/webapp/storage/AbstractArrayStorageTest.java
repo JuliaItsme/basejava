@@ -5,9 +5,6 @@ import com.urise.webapp.model.Resume;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.UUID;
-
-
 public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
     protected AbstractArrayStorageTest(Storage storage) {
@@ -19,7 +16,7 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
         storage.clear();
         try {
             for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume("name" + i ));
+                storage.save(new Resume("name" + i));
             }
         } catch (StorageException e) {
             Assert.fail();

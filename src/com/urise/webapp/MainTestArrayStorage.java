@@ -2,22 +2,29 @@ package com.urise.webapp;
 
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.ArrayStorage;
-import com.urise.webapp.storage.SortedArrayStorage;
+import com.urise.webapp.storage.MapResumeStorage;
+import com.urise.webapp.storage.MapUuidStorage;
 
-/**
- * Test for your com.urise.webapp.storage.ArrayStorage implementation
- */
 public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    static final MapResumeStorage MAP_RESUME = new MapResumeStorage();
 
     public static void main(String[] args) {
-        final Resume r1 = new Resume("name1");
-        final Resume r2 = new Resume("name2");
-        final Resume r3 = new Resume("name3");
+        final Resume r1 = new Resume("uuid1", "name1");
+        final Resume r2 = new Resume("uuid2", "name2");
+        final Resume r3 = new Resume("uuid3", "name3");
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
+
+        MAP_RESUME.save(r1);
+        MAP_RESUME.save(r2);
+        MAP_RESUME.save(r3);
+        MAP_RESUME.get(r1.getUuid());
+        MAP_RESUME.update(r2);
+        MAP_RESUME.delete(r1.getUuid());
+
 
         printAll();
         System.out.println("Size: " + ARRAY_STORAGE.size() + "\n");

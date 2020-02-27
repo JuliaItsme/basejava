@@ -5,48 +5,47 @@ import com.urise.webapp.model.Resume;
 import java.util.*;
 
 public class MapUuidStorage extends AbstractStorage {
-    Map<String, Resume> hashMap = new HashMap<>();
+    private Map<String, Resume> hashMap = new HashMap<>();
 
     @Override
-    protected String getSearchKey(String uuid) {
-        return uuid;
+    protected String getSearchKey(String uuidKey) {
+        return uuidKey;
     }
 
     @Override
-    protected boolean isExist(Object uuid) {
-        return hashMap.containsKey((String) uuid);
+    protected boolean isExist(Object uuidKey) {
+        return hashMap.containsKey((String) uuidKey);
     }
 
     @Override
-    protected void doSave(Resume resume, Object uuid) {
-        hashMap.put((String) uuid, resume);
+    protected void doSave(Resume resume, Object uuidKey) {
+        hashMap.put((String) uuidKey, resume);
     }
 
     @Override
-    protected void doUpdate(Resume resume, Object uuid) {
-        hashMap.put((String) uuid, resume);
+    protected void doUpdate(Resume resume, Object uuidKey) {
+        hashMap.put((String) uuidKey, resume);
     }
 
     @Override
-    protected Resume doGet(Object uuid) {
-        return hashMap.get((String) uuid);
+    protected Resume doGet(Object uuidKey) {
+        return hashMap.get((String) uuidKey);
     }
 
     @Override
-    protected void doDelete(Object uuid) {
-        hashMap.remove((String) uuid);
+    protected List<Resume> doGetAll() {
+        List<Resume> arrayList = new ArrayList<>(hashMap.values());
+        return arrayList;
+    }
+
+    @Override
+    protected void doDelete(Object uuidKey) {
+        hashMap.remove((String) uuidKey);
     }
 
     @Override
     public int size() {
         return hashMap.size();
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> arrayList = new ArrayList<>(hashMap.values());
-        Collections.sort(arrayList, (o1, o2) -> o1.toString().compareTo(o2.toString()));
-        return arrayList;
     }
 
     @Override

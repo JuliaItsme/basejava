@@ -4,49 +4,48 @@ import com.urise.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapResumeStorage  extends AbstractStorage{
-    Map<String, Resume> hashMap = new HashMap<>();
+public class MapResumeStorage extends AbstractStorage {
+    private Map<String, Resume> hashMap = new HashMap<>();
 
     @Override
-    protected Object getSearchKey(String uuid) {
-        return uuid;
+    protected Resume getSearchKey(String uuid) {
+        return hashMap.get(uuid);
     }
 
     @Override
     protected boolean isExist(Object resumeKey) {
-        return hashMap.containsKey(((Resume)resumeKey).getUuid());
+        return hashMap.containsKey(resumeKey);
     }
 
     @Override
     protected void doSave(Resume resume, Object resumeKey) {
-        hashMap.put(((Resume)resumeKey).getUuid(), resume);
+        hashMap.put(resume.getUuid(), resume);
     }
 
     @Override
     protected void doUpdate(Resume resume, Object resumeKey) {
-        hashMap.put(((Resume)resumeKey).getUuid(), resume);
+        hashMap.put(resume.getUuid(), resume);
     }
 
     @Override
     protected Resume doGet(Object resumeKey) {
-        return hashMap.get(((Resume)resumeKey).getUuid());
+        return (Resume) resumeKey;
+    }
+
+    @Override
+    protected List<Resume> doGetAll() {
+        List<Resume> arrayList = new ArrayList<>(hashMap.values());
+        return arrayList;
     }
 
     @Override
     protected void doDelete(Object resumeKey) {
-        hashMap.remove(((Resume)resumeKey).getUuid());
+        hashMap.remove(((Resume) resumeKey).getUuid());
     }
 
     @Override
     public int size() {
         return hashMap.size();
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> arrayList = new ArrayList<>(hashMap.values());
-        Collections.sort(arrayList, (o1, o2) -> o1.toString().compareTo(o2.toString()));
-        return arrayList;
     }
 
     @Override
