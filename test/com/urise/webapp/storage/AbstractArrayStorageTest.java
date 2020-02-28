@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
-
     protected AbstractArrayStorageTest(Storage storage) {
         super(storage);
     }
@@ -16,11 +15,11 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
         storage.clear();
         try {
             for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume("name" + i));
+                storage.save(new Resume("Name" + 1));
             }
         } catch (StorageException e) {
             Assert.fail();
         }
-        storage.save(new Resume("name4"));
+        storage.save(new Resume("Overflow"));
     }
 }

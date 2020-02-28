@@ -5,50 +5,50 @@ import com.urise.webapp.model.Resume;
 import java.util.*;
 
 public class MapResumeStorage extends AbstractStorage {
-    private Map<String, Resume> hashMap = new HashMap<>();
+    private Map<String, Resume> map = new HashMap<>();
 
     @Override
     protected Resume getSearchKey(String uuid) {
-        return hashMap.get(uuid);
+        return map.get(uuid);
     }
 
     @Override
-    protected boolean isExist(Object resumeKey) {
-        return resumeKey != null;
+    protected boolean isExist(Object resume) {
+        return resume != null;
     }
 
     @Override
-    protected void doSave(Resume resume, Object resumeKey) {
-        hashMap.put(resume.getUuid(), resume);
+    protected void doSave(Resume resum, Object resume) {
+        map.put(resum.getUuid(), resum);
     }
 
     @Override
-    protected void doUpdate(Resume resume, Object resumeKey) {
-        hashMap.put(resume.getUuid(), resume);
+    protected void doUpdate(Resume resum, Object resume) {
+        map.put(resum.getUuid(), resum);
     }
 
     @Override
-    protected Resume doGet(Object resumeKey) {
-        return (Resume) resumeKey;
+    protected Resume doGet(Object resume) {
+        return (Resume) resume;
     }
 
     @Override
-    protected List<Resume> doGetAll() {
-        return new ArrayList<>(hashMap.values());
+    protected List<Resume> doCopyAll() {
+        return new ArrayList<>(map.values());
     }
 
     @Override
-    protected void doDelete(Object resumeKey) {
-        hashMap.remove(((Resume) resumeKey).getUuid());
+    protected void doDelete(Object resume) {
+        map.remove(((Resume) resume).getUuid());
     }
 
     @Override
     public int size() {
-        return hashMap.size();
+        return map.size();
     }
 
     @Override
     public void clear() {
-        hashMap.clear();
+        map.clear();
     }
 }
