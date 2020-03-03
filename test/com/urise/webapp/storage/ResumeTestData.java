@@ -1,16 +1,18 @@
-package com.urise.webapp;
+package com.urise.webapp.storage;
 
 import com.urise.webapp.model.*;
 import com.urise.webapp.storage.ListStorage;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ResumeTestData {
     static final ListStorage LIST_STORAGE = new ListStorage();
 
     public static void main(String[] args) {
-        Resume resume = new Resume("uuid1","Григорий Кислин");
+        Resume resume = new Resume("uuid1", "Григорий Кислин");
 
         resume.setContacts(ContactType.PHONE_NUMBER, "+7(921)8550482");
         resume.setContacts(ContactType.SKYPE, "grigory.kislin");
@@ -82,8 +84,8 @@ public class ResumeTestData {
         Organization o2 = new Organization(
                 "Wrike",
                 "https://www.wrike.com/",
-                LocalDate.of( 2014, 10, 1),
-                LocalDate.of( 2016, 1, 1),
+                LocalDate.of(2014, 10, 1),
+                LocalDate.of(2016, 1, 1),
                 "Старший разработчик (backend)",
                 "Проектирование и разработка онлайн платформы управления проектами Wrike" +
                         " (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). " +
@@ -91,8 +93,8 @@ public class ResumeTestData {
         Organization o3 = new Organization(
                 "RIT Center",
                 null,
-                LocalDate.of( 2012, 4, 1),
-                LocalDate.of( 2014, 10, 1),
+                LocalDate.of(2012, 4, 1),
+                LocalDate.of(2014, 10, 1),
                 "Java архитектор",
                 "Организация процесса разработки системы ERP для разных окружений: релизная политика, " +
                         "версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway)," +
@@ -105,8 +107,8 @@ public class ResumeTestData {
         Organization o4 = new Organization(
                 "Luxoft (Deutsche Bank)",
                 "https://www.luxoft.com/",
-                LocalDate.of( 2010, 12, 1),
-                LocalDate.of( 2012, 4, 1),
+                LocalDate.of(2010, 12, 1),
+                LocalDate.of(2012, 4, 1),
                 "Ведущий программист",
                 "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, " +
                         "Jasper, Oracle). Реализация клиентской и серверной части CRM. " +
@@ -115,8 +117,8 @@ public class ResumeTestData {
         Organization o5 = new Organization(
                 "Yota",
                 "https://www.yota.ru/",
-                LocalDate.of( 2008, 6, 1),
-                LocalDate.of( 2010, 12, 1),
+                LocalDate.of(2008, 6, 1),
+                LocalDate.of(2010, 12, 1),
                 "Ведущий специалист",
                 "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\" " +
                         "(GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). " +
@@ -125,95 +127,81 @@ public class ResumeTestData {
         Organization o6 = new Organization(
                 "Enkata",
                 "https://www.pega.com/products/pega-platform/robotic-automation",
-                LocalDate.of( 2007, 3, 1),
-                LocalDate.of( 2008, 6, 1),
+                LocalDate.of(2007, 3, 1),
+                LocalDate.of(2008, 6, 1),
                 "Разработчик ПО",
                 "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, Tomcat, JMS)" +
                         " частей кластерного J2EE приложения (OLAP, Data mining)");
         Organization o7 = new Organization(
                 "Siemens AG",
                 "https://new.siemens.com/ru/ru.html",
-                LocalDate.of( 2005, 1, 1),
-                LocalDate.of( 2007, 2, 1),
+                LocalDate.of(2005, 1, 1),
+                LocalDate.of(2007, 2, 1),
                 "Разработчик ПО",
                 "Разработка информационной модели, проектирование интерфейсов, реализация и " +
                         "отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix).");
         Organization o8 = new Organization(
                 "Alcatel",
                 "http://www.alcatel.ru/",
-                LocalDate.of( 1997, 9, 1),
-                LocalDate.of( 2005, 1, 1),
+                LocalDate.of(1997, 9, 1),
+                LocalDate.of(2005, 1, 1),
                 "Инженер по аппаратному и программному тестированию",
                 "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).");
 
-        List<Organization> org1 = new ArrayList<>();
-        org1.add(o1);
-        org1.add(o2);
-        org1.add(o3);
-        org1.add(o4);
-        org1.add(o5);
-        org1.add(o6);
-        org1.add(o7);
-        org1.add(o8);
+        List<Organization> org1 = new ArrayList<>(Arrays.asList(o1, o2, o3, o4, o5, o6, o7, o8));
 
         resume.setSections(SectionType.EXPERIENCE, new SectionOrganization(org1));
 
         Organization or1 = new Organization(
                 "Coursera",
                 "https://www.coursera.org/learn/progfun1",
-                LocalDate.of( 2013, 3, 1),
-                LocalDate.of( 2013, 5, 1),
+                LocalDate.of(2013, 3, 1),
+                LocalDate.of(2013, 5, 1),
                 "\t\"Functional Programming Principles in Scala\" by Martin Odersky", null);
         Organization or2 = new Organization(
                 "Luxoft",
                 "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html",
-                LocalDate.of( 2011, 3, 1),
-                LocalDate.of( 2011, 4, 1),
+                LocalDate.of(2011, 3, 1),
+                LocalDate.of(2011, 4, 1),
                 "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"", null);
         Organization or3 = new Organization(
                 "Siemens AG",
                 "https://new.siemens.com/ru/ru.html",
-                LocalDate.of( 2005, 1, 1),
-                LocalDate.of( 2005, 4, 1),
+                LocalDate.of(2005, 1, 1),
+                LocalDate.of(2005, 4, 1),
                 "\t3 месяца обучения мобильным IN сетям (Берлин)", null);
         Organization or4 = new Organization(
                 "Alcatel",
                 "http://www.alcatel.ru/",
-                LocalDate.of( 1997, 9, 1),
-                LocalDate.of( 1998, 3, 1),
+                LocalDate.of(1997, 9, 1),
+                LocalDate.of(1998, 3, 1),
                 "6 месяцев обучения цифровым телефонным сетям (Москва)", null);
         Organization or5 = new Organization(
                 "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
                 "https://itmo.ru/ru/",
-                LocalDate.of( 1993, 9, 1),
-                LocalDate.of( 1996, 7, 1),
+                LocalDate.of(1993, 9, 1),
+                LocalDate.of(1996, 7, 1),
                 "Аспирантура (программист С, С++)", null);
         Organization or6 = new Organization(
                 "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
                 "https://itmo.ru/ru/",
-                LocalDate.of( 1987, 9, 1),
-                LocalDate.of( 1993, 7, 1),
+                LocalDate.of(1987, 9, 1),
+                LocalDate.of(1993, 7, 1),
                 "Инженер (программист Fortran, C)", null);
         Organization or7 = new Organization(
                 "Заочная физико-техническая школа при МФТИ",
                 "http://www.school.mipt.ru/",
-                LocalDate.of(1984,9,1),
-                LocalDate.of(1987, 6,1),
+                LocalDate.of(1984, 9, 1),
+                LocalDate.of(1987, 6, 1),
                 "Закончил с отличием", null);
-        List<Organization> org2 = new ArrayList<>();
-        org2.add(or1);
-        org2.add(or2);
-        org2.add(or3);
-        org2.add(or4);
-        org2.add(or5);
-        org2.add(or6);
-        org2.add(or7);
+        List<Organization> org2 = new ArrayList<>(Arrays.asList(or1, or2, or3, or4, or5, or6, or7));
 
         resume.setSections(SectionType.EDUCATION, new SectionOrganization(org2));
-        
+
         LIST_STORAGE.save(resume);
         printAll();
     }
+
     static void printAll() {
         System.out.println("\nGet All");
         for (Resume r : LIST_STORAGE.getAllSorted()) {

@@ -30,21 +30,21 @@ public class Organization {
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
         if (!title.equals(that.title)) return false;
-        if (!url.equals(that.url)) return false;
+        if (url != null ? !url.equals(that.url) : that.url != null) return false;
         if (!start.equals(that.start)) return false;
         if (!end.equals(that.end)) return false;
         if (!position.equals(that.position)) return false;
-        return description.equals(that.description);
+        return description != null ? description.equals(that.description) : that.description == null;
     }
 
     @Override
     public int hashCode() {
         int result = title.hashCode();
-        result = 31 * result + url.hashCode();
+        result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + start.hashCode();
         result = 31 * result + end.hashCode();
         result = 31 * result + position.hashCode();
-        result = 31 * result + description.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
 
