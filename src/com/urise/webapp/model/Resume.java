@@ -1,16 +1,16 @@
 package com.urise.webapp.model;
 
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
-/**
- * Initial resume class
- */
 public class Resume implements Comparable<Resume> {
 
     private final String uuid;
 
     private final String fullName;
+
+    private final Map<ContactType, String > contact = new HashMap<>();
+
+    private final Map<SectionType, Section> section = new HashMap<>();
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
