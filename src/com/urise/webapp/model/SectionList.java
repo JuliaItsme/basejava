@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class SectionList extends Section {
-    private final List<String> part;
+    private final List<String> parts;
 
-    public SectionList(List<String> part) {
-        Objects.requireNonNull(part, "part must not be null");
-        this.part = part;
+    public SectionList(List<String> parts) {
+        Objects.requireNonNull(parts, "part must not be null");
+        this.parts = parts;
     }
 
     public List<String> getPart() {
-        return part;
+        return parts;
     }
 
     @Override
@@ -20,16 +20,16 @@ public class SectionList extends Section {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SectionList that = (SectionList) o;
-        return part.equals(that.part);
+        return parts.equals(that.parts);
     }
 
     @Override
     public int hashCode() {
-        return part.hashCode();
+        return parts.hashCode();
     }
 
     @Override
     public String toString() {
-        return part.toString();
+        return parts.toString();
     }
 }

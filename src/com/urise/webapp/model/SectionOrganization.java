@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class SectionOrganization extends Section {
-    private final List<Organization> org;
+    private final List<Organization> orgs;
 
-    public SectionOrganization(List<Organization> org) {
-        Objects.requireNonNull(org, "org must not be null");
-        this.org = org;
+    public SectionOrganization(List<Organization> orgs) {
+        Objects.requireNonNull(orgs, "org must not be null");
+        this.orgs = orgs;
     }
 
-    public List<Organization> getOrg() {
-        return org;
+    public List<Organization> getOrgs() {
+        return orgs;
     }
 
     @Override
@@ -20,16 +20,16 @@ public class SectionOrganization extends Section {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SectionOrganization that = (SectionOrganization) o;
-        return org.equals(that.org);
+        return orgs.equals(that.orgs);
     }
 
     @Override
     public int hashCode() {
-        return org.hashCode();
+        return orgs.hashCode();
     }
 
     @Override
     public String toString() {
-        return org.toString();
+        return orgs.toString();
     }
 }

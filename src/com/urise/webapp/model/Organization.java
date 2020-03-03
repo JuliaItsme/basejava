@@ -13,11 +13,9 @@ public class Organization {
 
     public Organization(String title, String url, LocalDate start, LocalDate end, String position, String description) {
         Objects.requireNonNull(title, "title must not be null");
-        Objects.requireNonNull(url, "url must not be null");
         Objects.requireNonNull(start, "start must not be null");
         Objects.requireNonNull(end, "end must not be null");
         Objects.requireNonNull(position, "position must not be null");
-        Objects.requireNonNull(description, "description must not be null");
         this.title = title;
         this.url = url;
         this.start = start;
