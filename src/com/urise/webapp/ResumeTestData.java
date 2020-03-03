@@ -201,13 +201,13 @@ public class ResumeTestData {
                 LocalDate.of(1987, 6,1),
                 "Закончил с отличием", null);
         List<Organization> org2 = new ArrayList<>();
-        org1.add(or1);
-        org1.add(or2);
-        org1.add(or3);
-        org1.add(or4);
-        org1.add(or5);
-        org1.add(or6);
-        org1.add(or7);
+        org2.add(or1);
+        org2.add(or2);
+        org2.add(or3);
+        org2.add(or4);
+        org2.add(or5);
+        org2.add(or6);
+        org2.add(or7);
 
         resume.setSections(SectionType.EDUCATION, new SectionOrganization(org2));
         
