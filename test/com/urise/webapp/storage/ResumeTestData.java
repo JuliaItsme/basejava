@@ -1,7 +1,6 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.model.*;
-import com.urise.webapp.storage.ListStorage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,19 +13,19 @@ public class ResumeTestData {
     public static void main(String[] args) {
         Resume resume = new Resume("uuid1", "Григорий Кислин");
 
-        resume.setContacts(ContactType.PHONE_NUMBER, "+7(921)8550482");
-        resume.setContacts(ContactType.SKYPE, "grigory.kislin");
-        resume.setContacts(ContactType.EMAIL, "gkislin@yandex.ru");
-        resume.setContacts(ContactType.LINKEDIN, "grigory.kislin");
-        resume.setContacts(ContactType.GITHUB, "https://github.com/gkislin");
-        resume.setContacts(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
-        resume.setContacts(ContactType.HOMEPAGE, "http://gkislin.ru/");
+        resume.setContact(ContactType.PHONE_NUMBER, "+7(921)8550482");
+        resume.setContact(ContactType.SKYPE, "grigory.kislin");
+        resume.setContact(ContactType.EMAIL, "gkislin@yandex.ru");
+        resume.setContact(ContactType.LINKEDIN, "grigory.kislin");
+        resume.setContact(ContactType.GITHUB, "https://github.com/gkislin");
+        resume.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
+        resume.setContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
 
-        resume.setSections(SectionType.PERSONAL,
-                new SectionText(
+        resume.setSection(SectionType.PERSONAL,
+                new TextSection(
                         "Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
-        resume.setSections(SectionType.OBJECTIVE,
-                new SectionText(
+        resume.setSection(SectionType.OBJECTIVE,
+                new TextSection(
                         "Аналитический склад ума, сильная логика, креативность, инициативность. " +
                                 "Пурист кода и архитектуры"));
 
@@ -48,7 +47,7 @@ public class ResumeTestData {
         list1.add("Реализация протоколов по приему платежей всех основных платежных системы России " +
                 "(Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.");
 
-        resume.setSections(SectionType.ACHIEVEMENT, new SectionList(list1));
+        resume.setSection(SectionType.ACHIEVEMENT, new ListSection(list1));
 
         List<String> list2 = new ArrayList<>();
         list2.add("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2");
@@ -72,7 +71,7 @@ public class ResumeTestData {
                 "архитектурных шаблонов, UML, функционального программирования");
         list2.add("Родной русский, английский \"upper intermediate\"");
 
-        resume.setSections(SectionType.QUALIFICATIONS, new SectionList(list2));
+        resume.setSection(SectionType.QUALIFICATIONS, new ListSection(list2));
 
         Organization o1 = new Organization(
                 "Java Online Projects",
@@ -150,53 +149,60 @@ public class ResumeTestData {
 
         List<Organization> org1 = new ArrayList<>(Arrays.asList(o1, o2, o3, o4, o5, o6, o7, o8));
 
-        resume.setSections(SectionType.EXPERIENCE, new SectionOrganization(org1));
+        resume.setSection(SectionType.EXPERIENCE, new OrganizationSection(org1));
 
         Organization or1 = new Organization(
                 "Coursera",
                 "https://www.coursera.org/learn/progfun1",
                 LocalDate.of(2013, 3, 1),
                 LocalDate.of(2013, 5, 1),
-                "\t\"Functional Programming Principles in Scala\" by Martin Odersky", null);
+                "\t\"Functional Programming Principles in Scala\" by Martin Odersky",
+                null);
         Organization or2 = new Organization(
                 "Luxoft",
                 "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html",
                 LocalDate.of(2011, 3, 1),
                 LocalDate.of(2011, 4, 1),
-                "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"", null);
+                "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
+                null);
         Organization or3 = new Organization(
                 "Siemens AG",
                 "https://new.siemens.com/ru/ru.html",
                 LocalDate.of(2005, 1, 1),
                 LocalDate.of(2005, 4, 1),
-                "\t3 месяца обучения мобильным IN сетям (Берлин)", null);
+                "\t3 месяца обучения мобильным IN сетям (Берлин)",
+                null);
         Organization or4 = new Organization(
                 "Alcatel",
                 "http://www.alcatel.ru/",
                 LocalDate.of(1997, 9, 1),
                 LocalDate.of(1998, 3, 1),
-                "6 месяцев обучения цифровым телефонным сетям (Москва)", null);
+                "6 месяцев обучения цифровым телефонным сетям (Москва)",
+                null);
         Organization or5 = new Organization(
                 "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
                 "https://itmo.ru/ru/",
                 LocalDate.of(1993, 9, 1),
                 LocalDate.of(1996, 7, 1),
-                "Аспирантура (программист С, С++)", null);
+                "Аспирантура (программист С, С++)",
+                null);
         Organization or6 = new Organization(
                 "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
                 "https://itmo.ru/ru/",
                 LocalDate.of(1987, 9, 1),
                 LocalDate.of(1993, 7, 1),
-                "Инженер (программист Fortran, C)", null);
+                "Инженер (программист Fortran, C)",
+                null);
         Organization or7 = new Organization(
                 "Заочная физико-техническая школа при МФТИ",
                 "http://www.school.mipt.ru/",
                 LocalDate.of(1984, 9, 1),
                 LocalDate.of(1987, 6, 1),
-                "Закончил с отличием", null);
+                "Закончил с отличием",
+                null);
         List<Organization> org2 = new ArrayList<>(Arrays.asList(or1, or2, or3, or4, or5, or6, or7));
 
-        resume.setSections(SectionType.EDUCATION, new SectionOrganization(org2));
+        resume.setSection(SectionType.EDUCATION, new OrganizationSection(org2));
 
         LIST_STORAGE.save(resume);
         printAll();

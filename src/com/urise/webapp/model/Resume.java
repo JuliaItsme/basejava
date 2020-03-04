@@ -27,19 +27,19 @@ public class Resume implements Comparable<Resume> {
         return uuid;
     }
 
-    public String getContacts(ContactType type) {
+    public String getContact(ContactType type) {
         return contacts.get(type);
     }
 
-    public Section getSections(SectionType type) {
+    public Section getSection(SectionType type) {
         return sections.get(type);
     }
 
-    public void setContacts(ContactType type, String s) {
+    public void setContact(ContactType type, String s) {
         contacts.put(type, s);
     }
 
-    public void setSections(SectionType type, Section s) {
+    public void setSection(SectionType type, Section s) {
         sections.put(type, s);
     }
 

@@ -4,23 +4,21 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Organization {
+    private final Link homePage;
+
+    private final LocalDate startDate;
+    private final LocalDate endDate;
     private final String title;
-    private final String url;
-    private final LocalDate start;
-    private final LocalDate end;
-    private final String position;
     private final String description;
 
-    public Organization(String title, String url, LocalDate start, LocalDate end, String position, String description) {
+    public Organization(String name, String url, LocalDate startDate, LocalDate endDate, String title, String description) {
+        Objects.requireNonNull(startDate, "start must not be null");
+        Objects.requireNonNull(endDate, "end must not be null");
         Objects.requireNonNull(title, "title must not be null");
-        Objects.requireNonNull(start, "start must not be null");
-        Objects.requireNonNull(end, "end must not be null");
-        Objects.requireNonNull(position, "position must not be null");
+        this.homePage = new Link(name, url);
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.title = title;
-        this.url = url;
-        this.start = start;
-        this.end = end;
-        this.position = position;
         this.description = description;
     }
 
@@ -29,21 +27,19 @@ public class Organization {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
+        if (!homePage.equals(that.homePage)) return false;
+        if (!startDate.equals(that.startDate)) return false;
+        if (!endDate.equals(that.endDate)) return false;
         if (!title.equals(that.title)) return false;
-        if (url != null ? !url.equals(that.url) : that.url != null) return false;
-        if (!start.equals(that.start)) return false;
-        if (!end.equals(that.end)) return false;
-        if (!position.equals(that.position)) return false;
         return description != null ? description.equals(that.description) : that.description == null;
     }
 
     @Override
     public int hashCode() {
-        int result = title.hashCode();
-        result = 31 * result + (url != null ? url.hashCode() : 0);
-        result = 31 * result + start.hashCode();
-        result = 31 * result + end.hashCode();
-        result = 31 * result + position.hashCode();
+        int result = homePage.hashCode();
+        result = 31 * result + startDate.hashCode();
+        result = 31 * result + endDate.hashCode();
+        result = 31 * result + title.hashCode();
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
@@ -51,11 +47,10 @@ public class Organization {
     @Override
     public String toString() {
         return "Organization{" +
-                "title='" + title + '\'' +
-                ", url='" + url + '\'' +
-                ", start=" + start +
-                ", end=" + end +
-                ", position='" + position + '\'' +
+                "homePage=" + homePage +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
