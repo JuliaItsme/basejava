@@ -1,10 +1,7 @@
 package com.urise.webapp;
 
-import java.io.IOException;
-
 public class MainString {
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         String[] strArray = new String[]{"1", "2", "3", "4", "5"};
         //String result = "";
