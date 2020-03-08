@@ -41,10 +41,10 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected void doSave(Resume resume, File file) {
         try {
             file.createNewFile();
-            doWrite(resume, file);
         } catch (IOException e) {
             throw new StorageException("IO error", file.getName(), e);
         }
+        doUpdate(resume, file);
     }
 
     @Override
@@ -68,9 +68,12 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected List<Resume> doCopyAll() {
         File[] file = directory.listFiles();
+        if (file == null) {
+            throw new StorageException("File don't read", directory.getName());
+        }
         List<Resume> list = new ArrayList<>();
-        for (int i = 0; i < file.length; i++) {
-            list.add(doRead(file[i]));
+        for (File value : file) {
+            list.add(doGet(value));
         }
         return list;
     }
@@ -78,20 +81,28 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doDelete(File file) {
         file.delete();
+        if (!file.delete()) {
+            throw new StorageException("File don't delete", file.getName());
+        }
     }
 
     @Override
     public int size() {
-        return directory.listFiles().length;
+        String[] str = directory.list();
+        if (str== null) {
+            throw new StorageException("File not found", directory.getName());
+        }
+        return str.length;
     }
 
-    //1.получить все файлы 2.удалить
     @Override
     public void clear() {
         File[] file = directory.listFiles();
-        for (int i = 0; i < file.length; i++) {
-            file[i].delete();
+        if (file == null) {
+            throw new StorageException("File don't read", directory.getName());
         }
-        directory.delete();
+        for (File value : file) {
+            doDelete(value);
+        }
     }
 }

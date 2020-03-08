@@ -1,15 +1,17 @@
 package com.urise.webapp.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Organization {
     private final Link homePage;
-    private final Information info;
+    private final List<Information> info;
 
-    public Organization(String name, String url, LocalDate startDate, LocalDate endDate, String title, String description) {
+    public Organization(String name, String url, ArrayList<Information> info) {
         this.homePage = new Link(name, url);
-        this.info = new Information(startDate, endDate, title, description);
+        this.info = info;
     }
 
     @Override

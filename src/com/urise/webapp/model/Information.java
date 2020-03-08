@@ -39,11 +39,11 @@ public class Information {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Information info = (Information) o;
-        return Objects.equals(startDate, info.startDate) &&
-                Objects.equals(endDate, info.endDate) &&
-                Objects.equals(title, info.title) &&
-                description.equals(info.description);
+        Information that = (Information) o;
+        return Objects.equals(startDate, that.startDate) &&
+                Objects.equals(endDate, that.endDate) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(description, that.description);
     }
 
     @Override

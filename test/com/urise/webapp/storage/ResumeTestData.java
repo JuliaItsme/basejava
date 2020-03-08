@@ -73,25 +73,19 @@ public class ResumeTestData {
 
         resume.setSection(SectionType.QUALIFICATIONS, new ListSection(list2));
 
-        Organization o1 = new Organization(
-                "Java Online Projects",
-                "http://javaops.ru/",
+        Information i1 = new Information(
                 LocalDate.of(2013, 10, 1),
                 LocalDate.now(),
                 "Автор проекта.",
                 "Создание, организация и проведение Java онлайн проектов и стажировок.");
-        Organization o2 = new Organization(
-                "Wrike",
-                "https://www.wrike.com/",
+        Information i2 = new Information(
                 LocalDate.of(2014, 10, 1),
                 LocalDate.of(2016, 1, 1),
                 "Старший разработчик (backend)",
                 "Проектирование и разработка онлайн платформы управления проектами Wrike" +
                         " (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). " +
                         "Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
-        Organization o3 = new Organization(
-                "RIT Center",
-                null,
+        Information i3 = new Information(
                 LocalDate.of(2012, 4, 1),
                 LocalDate.of(2014, 10, 1),
                 "Java архитектор",
@@ -103,9 +97,7 @@ public class ResumeTestData {
                         "для online редактирование из браузера документов MS Office. Maven + plugin development, " +
                         "Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, " +
                         "Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python");
-        Organization o4 = new Organization(
-                "Luxoft (Deutsche Bank)",
-                "https://www.luxoft.com/",
+        Information i4 = new Information(
                 LocalDate.of(2010, 12, 1),
                 LocalDate.of(2012, 4, 1),
                 "Ведущий программист",
@@ -113,9 +105,7 @@ public class ResumeTestData {
                         "Jasper, Oracle). Реализация клиентской и серверной части CRM. " +
                         "Реализация RIA-приложения для администрирования, мониторинга и анализа результатов в области " +
                         "алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5.");
-        Organization o5 = new Organization(
-                "Yota",
-                "https://www.yota.ru/",
+        Information i5 = new Information(
                 LocalDate.of(2008, 6, 1),
                 LocalDate.of(2010, 12, 1),
                 "Ведущий специалист",
@@ -123,84 +113,141 @@ public class ResumeTestData {
                         "(GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). " +
                         "Реализация администрирования, статистики и мониторинга фреймворка. " +
                         "Разработка online JMX клиента (Python/ Jython, Django, ExtJS)");
-        Organization o6 = new Organization(
-                "Enkata",
-                "https://www.pega.com/products/pega-platform/robotic-automation",
+        Information i6 = new Information(
                 LocalDate.of(2007, 3, 1),
                 LocalDate.of(2008, 6, 1),
                 "Разработчик ПО",
                 "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, Tomcat, JMS)" +
                         " частей кластерного J2EE приложения (OLAP, Data mining)");
-        Organization o7 = new Organization(
-                "Siemens AG",
-                "https://new.siemens.com/ru/ru.html",
+        Information i7 = new Information(
                 LocalDate.of(2005, 1, 1),
                 LocalDate.of(2007, 2, 1),
                 "Разработчик ПО",
                 "Разработка информационной модели, проектирование интерфейсов, реализация и " +
                         "отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix).");
-        Organization o8 = new Organization(
-                "Alcatel",
-                "http://www.alcatel.ru/",
+        Information i8 = new Information(
                 LocalDate.of(1997, 9, 1),
                 LocalDate.of(2005, 1, 1),
                 "Инженер по аппаратному и программному тестированию",
                 "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).");
 
+        ArrayList<Information> ar1 =  new ArrayList<>();
+        ar1.add(i1);
+        ArrayList<Information> ar2 =  new ArrayList<>();
+        ar1.add(i2);
+        ArrayList<Information> ar3 =  new ArrayList<>();
+        ar1.add(i3);
+        ArrayList<Information> ar4 =  new ArrayList<>();
+        ar1.add(i4);
+        ArrayList<Information> ar5 =  new ArrayList<>();
+        ar1.add(i5);
+        ArrayList<Information> ar6 =  new ArrayList<>();
+        ar1.add(i6);
+        ArrayList<Information> ar7 =  new ArrayList<>();
+        ar1.add(i7);
+        ArrayList<Information> ar8 =  new ArrayList<>();
+        ar1.add(i8);
+
+
+        Organization o1 = new Organization(
+                "Java Online Projects",
+                "http://javaops.ru/", ar1);
+        Organization o2 = new Organization(
+                "Wrike",
+                "https://www.wrike.com/", ar2);
+        Organization o3 = new Organization(
+                "RIT Center",
+                null, ar3);
+        Organization o4 = new Organization(
+                "Luxoft (Deutsche Bank)",
+                "https://www.luxoft.com/", ar4);
+        Organization o5 = new Organization(
+                "Yota",
+                "https://www.yota.ru/", ar5);
+        Organization o6 = new Organization(
+                "Enkata",
+                "https://www.pega.com/products/pega-platform/robotic-automation", ar6);
+        Organization o7 = new Organization(
+                "Siemens AG",
+                "https://new.siemens.com/ru/ru.html", ar7);
+        Organization o8 = new Organization(
+                "Alcatel",
+                "http://www.alcatel.ru/", ar8);
+
         List<Organization> org1 = new ArrayList<>(Arrays.asList(o1, o2, o3, o4, o5, o6, o7, o8));
 
         resume.setSection(SectionType.EXPERIENCE, new OrganizationSection(org1));
 
-        Organization or1 = new Organization(
-                "Coursera",
-                "https://www.coursera.org/learn/progfun1",
+        Information inf1 = new Information(
                 LocalDate.of(2013, 3, 1),
                 LocalDate.of(2013, 5, 1),
                 "\t\"Functional Programming Principles in Scala\" by Martin Odersky",
                 null);
-        Organization or2 = new Organization(
-                "Luxoft",
-                "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html",
+        Information inf2 = new Information(
                 LocalDate.of(2011, 3, 1),
                 LocalDate.of(2011, 4, 1),
                 "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
                 null);
-        Organization or3 = new Organization(
-                "Siemens AG",
-                "https://new.siemens.com/ru/ru.html",
+        Information inf3 = new Information(
                 LocalDate.of(2005, 1, 1),
                 LocalDate.of(2005, 4, 1),
                 "\t3 месяца обучения мобильным IN сетям (Берлин)",
                 null);
-        Organization or4 = new Organization(
-                "Alcatel",
-                "http://www.alcatel.ru/",
+        Information inf4 = new Information(
                 LocalDate.of(1997, 9, 1),
                 LocalDate.of(1998, 3, 1),
                 "6 месяцев обучения цифровым телефонным сетям (Москва)",
                 null);
-        Organization or5 = new Organization(
-                "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
-                "https://itmo.ru/ru/",
+        Information inf5 = new Information(
                 LocalDate.of(1993, 9, 1),
                 LocalDate.of(1996, 7, 1),
                 "Аспирантура (программист С, С++)",
                 null);
-        Organization or6 = new Organization(
-                "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
-                "https://itmo.ru/ru/",
+        Information inf6 = new Information(
                 LocalDate.of(1987, 9, 1),
                 LocalDate.of(1993, 7, 1),
                 "Инженер (программист Fortran, C)",
                 null);
-        Organization or7 = new Organization(
-                "Заочная физико-техническая школа при МФТИ",
-                "http://www.school.mipt.ru/",
+        Information inf7 = new Information(
                 LocalDate.of(1984, 9, 1),
                 LocalDate.of(1987, 6, 1),
                 "Закончил с отличием",
                 null);
-        List<Organization> org2 = new ArrayList<>(Arrays.asList(or1, or2, or3, or4, or5, or6, or7));
+        ArrayList<Information> arg1 =  new ArrayList<>();
+        arg1.add(inf1);
+        ArrayList<Information> arg2 =  new ArrayList<>();
+        arg2.add(inf2);
+        ArrayList<Information> arg3 =  new ArrayList<>();
+        arg3.add(inf3);
+        ArrayList<Information> arg4 =  new ArrayList<>();
+        arg4.add(inf4);
+        ArrayList<Information> arg5 =  new ArrayList<>();
+        arg5.add(inf5);
+        ArrayList<Information> arg6 =  new ArrayList<>();
+        arg6.add(inf6);
+        ArrayList<Information> arg7 =  new ArrayList<>();
+        arg7.add(inf7);
+
+        Organization or1 = new Organization(
+                "Coursera",
+                "https://www.coursera.org/learn/progfun1", arg1);
+        Organization or2 = new Organization(
+                "Luxoft",
+                "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html", arg2);
+        Organization or3 = new Organization(
+                "Siemens AG",
+                "https://new.siemens.com/ru/ru.html", arg3);
+        Organization or4 = new Organization(
+                "Alcatel",
+                "http://www.alcatel.ru/", arg4);
+        Organization or5 = new Organization(
+                "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
+                "https://itmo.ru/ru/", arg5, arg6);
+        Organization or6 = new Organization(
+                "Заочная физико-техническая школа при МФТИ",
+                "http://www.school.mipt.ru/", arg7);
+
+        List<Organization> org2 = new ArrayList<>(Arrays.asList(or1, or2, or3, or4, or5, or6));
 
         resume.setSection(SectionType.EDUCATION, new OrganizationSection(org2));
 

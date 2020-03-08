@@ -22,6 +22,7 @@ public class MainFile {
                 System.out.println(name);
             }
         }
+        /*
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(filePath);
@@ -37,22 +38,24 @@ public class MainFile {
                 }
             }
         }
+         */
         try (FileInputStream f = new FileInputStream(filePath)) {
             System.out.println(f.read());
         } catch (IOException e) {
             throw new RuntimeException("Error", e);
         }
-        print(new File("C:.\\src\\com\\urise\\webapp"));
-        //print(new File("C:.\\test"));
+
+        print(new File("C:\\basejava"));
     }
 
     public static void print(File dir) {
-        if (dir != null) {
-            for (File file : dir.listFiles()) {
-                if (file.isDirectory()) {
-                    print(file);
+        File[] file = dir.listFiles();
+        if (file != null) {
+            for (File files : file) {
+                if (files.isDirectory()) {
+                    print(files);
                 } else {
-                    System.out.println(file.getName());
+                    System.out.println(files.getAbsolutePath());
                 }
             }
         }
