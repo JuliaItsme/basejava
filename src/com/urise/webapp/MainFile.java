@@ -55,7 +55,7 @@ public class MainFile {
                 if (files.isDirectory()) {
                     print(files);
                 } else {
-                    System.out.println(files.getAbsolutePath());
+                    System.out.println(files.getName());
                 }
             }
         }

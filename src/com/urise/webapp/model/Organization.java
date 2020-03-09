@@ -1,13 +1,18 @@
 package com.urise.webapp.model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class Organization {
     private final Link homePage;
     private final List<Information> info;
+
+    public Organization(String name, String url, Information... info) {
+        this.homePage = new Link(name, url);
+        this.info = Arrays.asList(info);
+    }
 
     public Organization(String name, String url, ArrayList<Information> info) {
         this.homePage = new Link(name, url);

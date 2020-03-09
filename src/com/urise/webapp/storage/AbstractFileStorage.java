@@ -67,12 +67,8 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doCopyAll() {
-        File[] file = directory.listFiles();
-        if (file == null) {
-            throw new StorageException("File don't read", directory.getName());
-        }
         List<Resume> list = new ArrayList<>();
-        for (File value : file) {
+        for (File value : file()) {
             list.add(doGet(value));
         }
         return list;
@@ -80,7 +76,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected void doDelete(File file) {
-        file.delete();
         if (!file.delete()) {
             throw new StorageException("File don't delete", file.getName());
         }
@@ -89,7 +84,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public int size() {
         String[] str = directory.list();
-        if (str== null) {
+        if (str == null) {
             throw new StorageException("File not found", directory.getName());
         }
         return str.length;
@@ -97,12 +92,16 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
+        for (File value : file()) {
+            doDelete(value);
+        }
+    }
+
+    private File[] file() {
         File[] file = directory.listFiles();
         if (file == null) {
             throw new StorageException("File don't read", directory.getName());
         }
-        for (File value : file) {
-            doDelete(value);
-        }
+        return file;
     }
 }
