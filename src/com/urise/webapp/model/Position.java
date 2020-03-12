@@ -1,15 +1,27 @@
 package com.urise.webapp.model;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Objects;
 
-public class Information {
+import static com.urise.webapp.util.DateUtil.NOW;
+import static com.urise.webapp.util.DateUtil.of;
+
+public class Position {
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String title;
     private final String description;
 
-    public Information(LocalDate startDate, LocalDate endDate, String title, String description) {
+    public Position(int startYear, Month startMonth, String title, String description) {
+        this(of(startYear, startMonth), NOW, title, description);
+    }
+
+    public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
+        this(of(startYear, startMonth), of(endYear, endMonth), title, description);
+    }
+
+    public Position(LocalDate startDate, LocalDate endDate, String title, String description) {
         Objects.requireNonNull(startDate, "start must not be null");
         Objects.requireNonNull(endDate, "end must not be null");
         Objects.requireNonNull(title, "title must not be null");
@@ -39,11 +51,11 @@ public class Information {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Information that = (Information) o;
-        return Objects.equals(startDate, that.startDate) &&
-                Objects.equals(endDate, that.endDate) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(description, that.description);
+        Position position = (Position) o;
+        return startDate.equals(position.startDate) &&
+                endDate.equals(position.endDate) &&
+                title.equals(position.title) &&
+                Objects.equals(description, position.description);
     }
 
     @Override
@@ -53,6 +65,6 @@ public class Information {
 
     @Override
     public String toString() {
-        return "Information (" + startDate + endDate + title + description + ')';
+        return "Position (" + startDate + ',' + endDate + ',' + title + ',' + description + ')';
     }
 }

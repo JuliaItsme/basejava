@@ -42,7 +42,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             file.createNewFile();
         } catch (IOException e) {
-            throw new StorageException("IO error", file.getName(), e);
+            throw new StorageException("Couldn't create file " + file.getAbsolutePath(), file.getName(), e);
         }
         doUpdate(resume, file);
     }
@@ -52,7 +52,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             doWrite(resume, file);
         } catch (IOException e) {
-            throw new StorageException("File don't write", file.getName(), e);
+            throw new StorageException("File write error", resume.getUuid(), e);
         }
     }
 
@@ -61,13 +61,13 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             return doRead(file);
         } catch (IOException e) {
-            throw new StorageException("File don't read", file.getName(), e);
+            throw new StorageException("File read error", file.getName(), e);
         }
     }
 
     @Override
     protected List<Resume> doCopyAll() {
-        List<Resume> list = new ArrayList<>();
+        List<Resume> list = new ArrayList<>(file().length);
         for (File value : file()) {
             list.add(doGet(value));
         }
@@ -77,7 +77,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doDelete(File file) {
         if (!file.delete()) {
-            throw new StorageException("File don't delete", file.getName());
+            throw new StorageException("File delete error", file.getName());
         }
     }
 
@@ -85,7 +85,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     public int size() {
         String[] str = directory.list();
         if (str == null) {
-            throw new StorageException("File not found", directory.getName());
+            throw new StorageException("Directory read error", null);
         }
         return str.length;
     }
@@ -100,7 +100,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     private File[] file() {
         File[] file = directory.listFiles();
         if (file == null) {
-            throw new StorageException("File don't read", directory.getName());
+            throw new StorageException("File read error", null);
         }
         return file;
     }

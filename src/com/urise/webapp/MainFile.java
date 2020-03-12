@@ -8,13 +8,13 @@ public class MainFile {
     public static void main(String[] args) {
         String filePath = ".\\.gitignore";
 
-        File file = new File("C:.\\.gitignore");
+        File file = new File(filePath);
         try {
             System.out.println(file.getCanonicalPath());
         } catch (IOException e) {
             throw new RuntimeException("Error", e);
         }
-        File dir = new File("C:.\\src\\com\\urise\\webapp");
+        File dir = new File("C:\\basejava");
         System.out.println(dir.isDirectory());
         String[] str = dir.list();
         if (str != null) {
@@ -39,23 +39,23 @@ public class MainFile {
             }
         }
          */
-        try (FileInputStream f = new FileInputStream(filePath)) {
-            System.out.println(f.read());
+        try (FileInputStream fis = new FileInputStream(filePath)) {
+            System.out.println(fis.read());
         } catch (IOException e) {
-            throw new RuntimeException("Error", e);
+            throw new RuntimeException(e);
         }
-
-        print(new File("C:\\basejava"));
+        printDirectory(dir);
     }
 
-    public static void print(File dir) {
-        File[] file = dir.listFiles();
-        if (file != null) {
-            for (File files : file) {
-                if (files.isDirectory()) {
-                    print(files);
-                } else {
-                    System.out.println(files.getName());
+    public static void printDirectory(File dir) {
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    System.out.println("Directory: " + file.getName());
+                    printDirectory(file);
+                } else if (file.isFile()) {
+                    System.out.println("File: " + file.getName());
                 }
             }
         }

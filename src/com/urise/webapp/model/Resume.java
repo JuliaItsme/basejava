@@ -5,11 +5,9 @@ import java.util.*;
 public class Resume implements Comparable<Resume> {
 
     private final String uuid;
-
     private final String fullName;
 
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-
     private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
@@ -27,6 +25,10 @@ public class Resume implements Comparable<Resume> {
         return uuid;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
     public String getContact(ContactType type) {
         return contacts.get(type);
     }
@@ -35,12 +37,12 @@ public class Resume implements Comparable<Resume> {
         return sections.get(type);
     }
 
-    public void setContact(ContactType type, String s) {
-        contacts.put(type, s);
+    public void setContact(ContactType type, String value) {
+        contacts.put(type, value);
     }
 
-    public void setSection(SectionType type, Section s) {
-        sections.put(type, s);
+    public void setSection(SectionType type, Section section) {
+        sections.put(type, section);
     }
 
     @Override

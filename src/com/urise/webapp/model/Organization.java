@@ -7,16 +7,15 @@ import java.util.Objects;
 
 public class Organization {
     private final Link homePage;
-    private final List<Information> info;
+    private List<Position> positions = new ArrayList<>();
 
-    public Organization(String name, String url, Information... info) {
-        this.homePage = new Link(name, url);
-        this.info = Arrays.asList(info);
+    public Organization(String name, String url, Position... positions) {
+        this(new Link(name, url), Arrays.asList(positions));
     }
 
-    public Organization(String name, String url, ArrayList<Information> info) {
-        this.homePage = new Link(name, url);
-        this.info = info;
+    public Organization(Link homePage, List<Position> positions) {
+        this.homePage = homePage;
+        this.positions = positions;
     }
 
     @Override
@@ -25,16 +24,16 @@ public class Organization {
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
         return Objects.equals(homePage, that.homePage) &&
-                Objects.equals(info, that.info);
+                Objects.equals(positions, that.positions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(homePage, info);
+        return Objects.hash(homePage, positions);
     }
 
     @Override
     public String toString() {
-        return "Organization(" + homePage + info + ')';
+        return "Organization(" + homePage + ", " + positions + ')';
     }
 }
