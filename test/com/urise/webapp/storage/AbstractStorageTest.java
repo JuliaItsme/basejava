@@ -7,12 +7,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGE_DIR = new File("C:\\basejava\\storage");
     protected Storage storage;
 
     private static final String UUID_1 = "uuid1";
@@ -59,14 +61,14 @@ public abstract class AbstractStorageTest {
     public void getAllSorted() throws Exception {
         List<Resume> list = storage.getAllSorted();
         assertEquals(3, list.size());
-        assertEquals(list, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
+        assertEquals(list, storage.getAllSorted());
     }
 
     @Test
     public void update() throws Exception {
         Resume resume = new Resume(UUID_1, "New Name");
         storage.update(resume);
-        assertSame(resume, storage.get(UUID_1));
+        assertTrue(resume.equals(storage.get(UUID_1)));
     }
 
     @Test(expected = NotExistStorageException.class)
