@@ -8,6 +8,7 @@ public class MainFile {
     static String counterDir = "";
     static String str = "";
     static String counterFile = "";
+
     public static void main(String[] args) {
         String filePath = ".\\.gitignore";
 
