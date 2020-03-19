@@ -5,7 +5,7 @@ import com.urise.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamStorage implements ReadWrite {
+public class ObjectStream implements ReadWrite {
 
     @Override
     public void doWrite(Resume resume, OutputStream os) throws IOException {

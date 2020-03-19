@@ -8,7 +8,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -31,19 +30,22 @@ public class PathStorage extends AbstractStorage<Path> {
         try {
             Files.list(directory).forEach(this::doDelete);
         } catch (IOException e) {
-            throw new StorageException("Path delete error", null);
+            throw new StorageException("Path delete error", directory.getFileName().toString(), e);
         }
     }
 
     @Override
     public int size() {
-        File[] files = directory.toFile().listFiles();
-        return files.length;
+        try {
+            return (int) Files.list(directory).count();
+        } catch (IOException e) {
+            throw new StorageException("Path  error", directory.getFileName().toString(), e);
+        }
     }
 
     @Override
     protected Path getSearchKey(String uuid) {
-        return new File(directory.toFile(), uuid).toPath();
+        return directory.resolve(uuid);
     }
 
     @Override
@@ -91,14 +93,14 @@ public class PathStorage extends AbstractStorage<Path> {
     @Override
     protected List<Resume> doCopyAll() {
         try {
-            List<Resume> list = new ArrayList<>();
-            List<Path> paths = Files.list(directory).collect(Collectors.toList());
-            for (Path path : paths) {
-                list.add(doGet(path));
-            }
-            return list;
+            return Files.list(directory).map(directory -> doGet(directory)).collect(Collectors.toList());
         } catch (IOException e) {
-            throw new StorageException("Path copy error", directory.getFileName().toString(), e);
+            throw new StorageException("Path read error", directory.getFileName().toString(), e);
         }
     }
 }
+
+//map принимает лямбда-выражение известное как функция (Function),
+// которое преобразовывает Stream одного типа данных в Stream другого типа.
+//flatMap() принимает лямбда-выражение известное как функция (Function),
+// которое "разворачивает" Stream-ы в один.

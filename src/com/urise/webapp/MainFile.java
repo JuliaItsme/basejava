@@ -5,9 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class MainFile {
-    static String counterDir = "";
-    static String str = "";
-    static String counterFile = "";
 
     public static void main(String[] args) {
         String filePath = ".\\.gitignore";
@@ -48,23 +45,19 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        printDirectory(dir);
+        printDirectory(dir, "");
     }
 
-    public static void printDirectory(File dir) {
+    public static void printDirectory(File dir, String count) {
         File[] files = dir.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory()) {
-                    System.out.println(counterDir + "Directory: " + file.getName());
-                    counterDir += "   ";
-                    str = counterDir;
-                    printDirectory(file);
-                    counterFile = "";
+                    System.out.println(count + "Directory: " + file.getName());
+                    count += " ";
+                    printDirectory(file, count);
                 } else if (file.isFile()) {
-                    counterFile = str;
-                    System.out.println(counterFile + "File: " + file.getName());
-                    counterDir = "";
+                    System.out.println(count + "File: " + file.getName());
                 }
             }
         }
