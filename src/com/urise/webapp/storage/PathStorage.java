@@ -98,7 +98,7 @@ public class PathStorage extends AbstractStorage<Path> {
             }
             return list;
         } catch (IOException e) {
-            throw new StorageException("Path copy error", null, e);
+            throw new StorageException("Path copy error", directory.getFileName().toString(), e);
         }
     }
 }
