@@ -71,11 +71,12 @@ public class DataStreamSerializer implements StreamSerializer {
             String fullName = dis.readUTF();
             Resume resume = new Resume(uuid, fullName);
 
-            for (int i = 0; i < dis.readInt(); i++) {
+
+            for (int i = 0, j = dis.readInt(); i < j; i++) {
                 resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF());
             }
 
-            for (int i = 0; i < dis.readInt(); i++) {
+            for (int i = 0, j = dis.readInt(); i < j; i++) {
                 SectionType sectionType = SectionType.valueOf(dis.readUTF());
                 resume.addSection(sectionType, section(dis, sectionType));
             }
@@ -89,24 +90,27 @@ public class DataStreamSerializer implements StreamSerializer {
         }
         if (sectionType.equals(SectionType.ACHIEVEMENT) || sectionType.equals(SectionType.QUALIFICATIONS)) {
             List<String> str = new ArrayList<>();
-            for (int i = 0; i < dis.readInt(); i++) {
+            for (int i = 0, j = dis.readInt(); i < j; i++) {
                 str.add(dis.readUTF());
             }
             return new ListSection(str);
         }
         if (sectionType.equals(SectionType.EXPERIENCE) || sectionType.equals(SectionType.EDUCATION)) {
-            List<Organization> org = new ArrayList<>(dis.readInt());
-            List<Organization.Position> pos = new ArrayList<>();
-            Organization.Position position = null;
-            for (int i = 0; i < dis.readInt(); i++) {
-                String name = dis.readUTF();
-                String url = dis.readUTF();
-                position.setStartDate(LocalDate.of(dis.readInt(), Month.of(dis.readInt()), 1));
-                position.setEndDate(LocalDate.of(dis.readInt(), Month.of(dis.readInt()), 1));
-                position.setTitle(dis.readUTF());
-                position.setDescription(dis.readUTF());
-                pos.add(new Organization.Position(position.getStartDate(), position.getEndDate(), position.getTitle(), position.getDescription()));
-                org.add(new Organization(new Link(name, url), pos));
+            List<Organization> org = new ArrayList<>();
+
+            for (int i = 0, j = dis.readInt(); i < j; i++) {
+                Link link = new Link(dis.readUTF(), dis.readUTF());
+
+                List<Organization.Position> pos = new ArrayList<>();
+                for (int a = 0, b = dis.readInt(); a < b; a++) {
+                    Organization.Position position = new Organization.Position();
+                    position.setStartDate(LocalDate.of(dis.readInt(), Month.of(dis.readInt()), 1));
+                    position.setEndDate(LocalDate.of(dis.readInt(), Month.of(dis.readInt()), 1));
+                    position.setTitle(dis.readUTF());
+                    position.setDescription(dis.readUTF());
+                    pos.add(new Organization.Position(position.getStartDate(), position.getEndDate(), position.getTitle(), position.getDescription()));
+                }
+                org.add(new Organization(link, pos));
             }
             return new OrganizationSection(org);
         }
