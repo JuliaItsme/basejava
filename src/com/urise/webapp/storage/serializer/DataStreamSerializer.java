@@ -99,7 +99,9 @@ public class DataStreamSerializer implements StreamSerializer {
             List<Organization> org = new ArrayList<>();
 
             for (int i = 0, j = dis.readInt(); i < j; i++) {
-                Link link = new Link(dis.readUTF(), dis.readUTF());
+                String name = dis.readUTF();
+                String url = dis.readUTF();
+                Link link = new Link(name, url.equals("") ? null : url);
 
                 List<Organization.Position> pos = new ArrayList<>();
                 for (int a = 0, b = dis.readInt(); a < b; a++) {
@@ -107,7 +109,8 @@ public class DataStreamSerializer implements StreamSerializer {
                     position.setStartDate(LocalDate.of(dis.readInt(), Month.of(dis.readInt()), 1));
                     position.setEndDate(LocalDate.of(dis.readInt(), Month.of(dis.readInt()), 1));
                     position.setTitle(dis.readUTF());
-                    position.setDescription(dis.readUTF());
+                    String descrip = dis.readUTF();
+                    position.setDescription(descrip.equals("") ? null : descrip);
                     pos.add(new Organization.Position(position.getStartDate(), position.getEndDate(), position.getTitle(), position.getDescription()));
                 }
                 org.add(new Organization(link, pos));

@@ -10,7 +10,6 @@ import static com.urise.webapp.util.DateUtil.NOW;
 import static com.urise.webapp.util.DateUtil.of;
 
 public class ResumeTestData {
-    private static final ListStorage LIST_STORAGE = new ListStorage();
     private static Resume RESUME = new Resume("uuid1", "Григорий Кислин");
 
     static {
@@ -21,6 +20,7 @@ public class ResumeTestData {
         RESUME.addContact(ContactType.GITHUB, "https://github.com/gkislin");
         RESUME.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
         RESUME.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
+
         RESUME.addSection(SectionType.PERSONAL, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
         RESUME.addSection(SectionType.OBJECTIVE, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры"));
         RESUME.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList(
@@ -35,7 +35,8 @@ public class ResumeTestData {
                 "Version control: Subversion, Git, Mercury, ClearCase, Perforce",
                 "DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle,",
                 "MySQL, SQLite, MS SQL, HSQLDB",
-                "Languages: Java, Scala, Python/Jython/PL-Python, JavaScript, Groovy,", "XML/XSD/XSLT, SQL, C/C++, Unix shell scripts,",
+                "Languages: Java, Scala, Python/Jython/PL-Python, JavaScript, Groovy,",
+                "XML/XSD/XSLT, SQL, C/C++, Unix shell scripts,",
                 "Java Frameworks: Java 8 (Time API, Streams), Guava, Java Executor, MyBatis, Spring (MVC, Security,Data, Clouds, Boot), JPA (Hibernate, EclipseLink), Guice, GWT(SmartGWT, ExtGWT/GXT), Vaadin, Jasperreports, Apache Commons, Eclipse SWT, JUnit, Selenium (htmlelements).",
                 "Python: Django.",
                 "JavaScript: jQuery, ExtJS, Bootstrap.js, underscore.js",
