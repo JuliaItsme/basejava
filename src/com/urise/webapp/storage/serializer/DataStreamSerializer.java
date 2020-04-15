@@ -34,31 +34,26 @@ public class DataStreamSerializer implements StreamSerializer {
             case PERSONAL:
             case OBJECTIVE:
                 dos.writeUTF(((TextSection) section).getContent());
+                break;
             case ACHIEVEMENT:
             case QUALIFICATIONS:
-                if (section instanceof ListSection) {
-                    writeWithException(dos, ((ListSection) section).getItems());
-                }
+                writeWithException(dos, ((ListSection) section).getItems(), string -> dos.writeUTF(string));
+                break;
             case EXPERIENCE:
             case EDUCATION:
-                if (section instanceof OrganizationSection) {
-                    writeWithException(dos, ((OrganizationSection) section).getOrganizations(), organization -> {
-                        dos.writeUTF(organization.getHomePage().getName());
-                        writeCheckNull(dos, organization.getHomePage().getUrl());
-                        writeWithException(dos, organization.getPositions(), position -> {
-                            dateStartWrite(dos, position);
-                            dos.writeUTF(position.getTitle());
-                            writeCheckNull(dos, position.getDescription());
-                        });
+                writeWithException(dos, ((OrganizationSection) section).getOrganizations(), organization -> {
+                    dos.writeUTF(organization.getHomePage().getName());
+                    writeCheckNull(dos, organization.getHomePage().getUrl());
+                    writeWithException(dos, organization.getPositions(), position -> {
+                        dateWrite(dos, position.getStartDate().getYear());
+                        dateWrite(dos, position.getStartDate().getMonthValue());
+                        dateWrite(dos, position.getEndDate().getYear());
+                        dateWrite(dos, position.getEndDate().getMonthValue());
+                        dos.writeUTF(position.getTitle());
+                        writeCheckNull(dos, position.getDescription());
                     });
-                }
-        }
-    }
-
-    private <KV> void writeWithException(DataOutputStream dos, Collection<KV> collection) throws IOException {
-        dos.writeInt(collection.size());
-        for (KV kv : collection) {
-            dos.writeUTF((String) kv);
+                });
+                break;
         }
     }
 
@@ -78,13 +73,9 @@ public class DataStreamSerializer implements StreamSerializer {
         dos.writeUTF(s == null ? "" : s);
     }
 
-    private void dateStartWrite(DataOutputStream dos, Organization.Position p) throws IOException {
-        dos.writeInt(p.getStartDate().getYear());
-        dos.writeInt(p.getStartDate().getMonthValue());
-        dos.writeInt(p.getEndDate().getYear());
-        dos.writeInt(p.getEndDate().getMonthValue());
+    private void dateWrite(DataOutputStream dos, int number) throws IOException {
+        dos.writeInt(number);
     }
-
 
     @Override
     public Resume doRead(InputStream is) throws IOException {
@@ -108,14 +99,14 @@ public class DataStreamSerializer implements StreamSerializer {
                 return new TextSection(dis.readUTF());
             case ACHIEVEMENT:
             case QUALIFICATIONS:
-                return new ListSection((List<String>) readWithException(dis));
+                return new ListSection(readWithException(dis, () -> dis.readUTF()));
             case EXPERIENCE:
             case EDUCATION:
-                return new OrganizationSection((List<Organization>) readWithException(dis, () -> new Organization(
+                return new OrganizationSection(readWithException(dis, () -> new Organization(
                         new Link(
                                 dis.readUTF(),
                                 readCheckNull(dis)),
-                        (List<Organization.Position>) readWithException(dis, () -> new Organization.Position(
+                        readWithException(dis, () -> new Organization.Position(
                                 dateRead(dis),
                                 dateRead(dis),
                                 dis.readUTF(),
@@ -136,22 +127,13 @@ public class DataStreamSerializer implements StreamSerializer {
         void itemReads() throws IOException;
     }
 
-    private Collection<String> readWithException(DataInputStream dis) throws IOException {
+    private <KV> List<KV> readWithException(DataInputStream dis, ItemRead<KV> item) throws IOException {
         int size = dis.readInt();
-        Collection<String> collection = new ArrayList<>(size);
+        List<KV> list = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
-            collection.add(dis.readUTF());
+            list.add(item.itemRead());
         }
-        return collection;
-    }
-
-    private <KV> Collection<KV> readWithException(DataInputStream dis, ItemRead<KV> item) throws IOException {
-        int size = dis.readInt();
-        Collection<KV> collection = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            collection.add(item.itemRead());
-        }
-        return collection;
+        return list;
     }
 
     @FunctionalInterface
@@ -168,23 +150,3 @@ public class DataStreamSerializer implements StreamSerializer {
         return LocalDate.of(dis.readInt(), Month.of(dis.readInt()), 1);
     }
 }
-
-//читать / писать лучше через switch (со сквозными case) в зависимости от SectionType
-//вынеси запись / чтение даты в отд методы
-
-/*  теперь надо зарефакторить запись всех коллекций (т.е. все for в doWrite) через функц интерфейс
-
-  посмотри на реализацию forEach
-      default void forEach(Consumer<? super T> action) {
-          Objects.requireNonNull(action);
-              for (T t : this) {
-                  action.accept(t);
-              }
-          }
-       }
-
-  надо сделать что-то подобное, т.к. использование готового forEach в нашей ситуации не подходит,
-  нам нужен метод который прокидывает IOException дальше, и свой кастомный функциональный интерфейс
-  (как записывать каждый отд элемент коллекции) который тоже прокидывает IOException
-  т.е. должен получится некий метод writeWithExeption (...) throws IOException, который как
-  параметры принимает коллекцию, DataOutputStream и твой функциональный интерфейс*/
