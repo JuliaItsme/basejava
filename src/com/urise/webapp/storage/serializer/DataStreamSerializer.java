@@ -37,7 +37,7 @@ public class DataStreamSerializer implements StreamSerializer {
                 break;
             case ACHIEVEMENT:
             case QUALIFICATIONS:
-                writeWithException(dos, ((ListSection) section).getItems(), string -> dos.writeUTF(string));
+                writeWithException(dos, ((ListSection) section).getItems(), dos::writeUTF);
                 break;
             case EXPERIENCE:
             case EDUCATION:
@@ -45,10 +45,8 @@ public class DataStreamSerializer implements StreamSerializer {
                     dos.writeUTF(organization.getHomePage().getName());
                     writeCheckNull(dos, organization.getHomePage().getUrl());
                     writeWithException(dos, organization.getPositions(), position -> {
-                        dateWrite(dos, position.getStartDate().getYear());
-                        dateWrite(dos, position.getStartDate().getMonthValue());
-                        dateWrite(dos, position.getEndDate().getYear());
-                        dateWrite(dos, position.getEndDate().getMonthValue());
+                        dateWrite(dos, position.getStartDate());
+                        dateWrite(dos, position.getEndDate());
                         dos.writeUTF(position.getTitle());
                         writeCheckNull(dos, position.getDescription());
                     });
@@ -73,8 +71,9 @@ public class DataStreamSerializer implements StreamSerializer {
         dos.writeUTF(s == null ? "" : s);
     }
 
-    private void dateWrite(DataOutputStream dos, int number) throws IOException {
-        dos.writeInt(number);
+    private void dateWrite(DataOutputStream dos, LocalDate date) throws IOException {
+        dos.writeInt(date.getYear());
+        dos.writeInt(date.getMonthValue());
     }
 
     @Override
@@ -99,7 +98,7 @@ public class DataStreamSerializer implements StreamSerializer {
                 return new TextSection(dis.readUTF());
             case ACHIEVEMENT:
             case QUALIFICATIONS:
-                return new ListSection(readWithException(dis, () -> dis.readUTF()));
+                return new ListSection(readWithException(dis, (ItemRead<String>) dis::readUTF));
             case EXPERIENCE:
             case EDUCATION:
                 return new OrganizationSection(readWithException(dis, () -> new Organization(
