@@ -3,72 +3,36 @@ package com.urise.webapp;
 import java.util.Random;
 
 public class DeadLock {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Account account1 = new Account();
         Account account2 = new Account();
 
-        //Lock lock1 = new ReentrantLock();
-        //Lock lock2 = new ReentrantLock();
+        new Thread(() -> transfer(account1, account2)).start();
 
-        Thread thread1 = new Thread(() -> {
-            for (int i = 0; i < 100; i++) {
-                synchronized (account1) {
-                    synchronized (account2) {
-                        Account.moving(account1, account2, new Random().nextInt(100));
-                    }
-                }
-            }
-        });
+        new Thread(() -> transfer(account2, account1)).start();
 
-        Thread thread2 = new Thread(() -> {
-            for (int i = 0; i < 100; i++) {
-                synchronized (account2) {
-                    synchronized (account1) {
-                        Account.moving(account2, account1, new Random().nextInt(100));
-                    }
-                }
-            }
-        });
-
-        /*Thread thread1 = new Thread(() -> {
-            for (int i = 0; i < 100; i++) {
-                lock1.lock();
-                lock2.lock();
-                try {
-                    Account.moving(account1, account2, new Random().nextInt(100));
-                } finally {
-                    lock1.unlock();
-                    lock2.unlock();
-                }
-            }
-        });
-
-        Thread thread2 = new Thread(() -> {
-            for (int i = 0; i < 100; i++) {
-                lock2.lock();
-                lock1.lock();
-                try {
-                    Account.moving(account1, account2, new Random().nextInt(100));
-                } finally {
-                    lock1.unlock();
-                    lock2.unlock();
-                }
-            }
-        });*/
-
-        thread1.start();
-        thread2.start();
-
-        thread1.join();
-        thread2.join();
-
-        total(account1, account2);
+        toString(account1, account2);
     }
 
-    private static void total(Account account1, Account account2) {
-        System.out.println(account1.getBalance());
-        System.out.println(account2.getBalance());
-        System.out.println("Total: " + (account1.getBalance() + account2.getBalance()));
+    private static void transfer(Account account1, Account account2) {
+        synchronized (account1) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            synchronized (account2) {
+                Account.moving(account1, account2, new Random().nextInt(100));
+            }
+        }
+        toString(account1, account2);
+    }
+
+    private static void toString(Account account1, Account account2) {
+        System.out.println("Thread: " + Thread.currentThread().getName());
+        System.out.println("Balance: " + account1.getBalance());
+        System.out.println("Balance: " + account2.getBalance());
+        System.out.println("Total: " + (account1.getBalance() + account2.getBalance()) + "\n");
     }
 
     static class Account {
@@ -78,17 +42,17 @@ public class DeadLock {
             return balance;
         }
 
-        public void increment(int inc) {
-            balance += inc;
+        public void increment(int amount) {
+            balance += amount;
         }
 
-        public void decrement(int dec) {
-            balance -= dec;
+        public void decrement(int amount) {
+            balance -= amount;
         }
 
-        public static void moving(Account account1, Account account2, int total) {
-            account1.decrement(total);
-            account2.increment(total);
+        public static void moving(Account account1, Account account2, int amount) {
+            account1.decrement(amount);
+            account2.increment(amount);
         }
     }
 }
