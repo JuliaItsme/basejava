@@ -12,7 +12,7 @@ import static com.urise.webapp.util.DateUtil.of;
 public class ResumeTestData {
     private static Resume RESUME = new Resume("uuid1", "Григорий Кислин");
 
-    static {
+    /*static {
         RESUME.addContact(ContactType.PHONE_NUMBER, "+7(921)8550482");
         RESUME.addContact(ContactType.SKYPE, "grigory.kislin");
         RESUME.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
@@ -78,7 +78,7 @@ public class ResumeTestData {
                                 new Organization.Position(of(1987, Month.SEPTEMBER), of(1993, Month.JULY), "Инженер (программист Fortran, C)", null))))),
                 new Organization("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/",
                         new Organization.Position(of(1984, Month.SEPTEMBER), of(1987, Month.JUNE), "Закончил с отличием", null)))));
-    }
+    }*/
 
     public static Resume getRESUME() {
         return RESUME;

@@ -15,6 +15,9 @@ import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = Config.getInstance().getStorageDir();
+    protected static final String DB_URL = Config.getInstance().getDbUrl();
+    protected static final String DB_USER = Config.getInstance().getDbUser();
+    protected static final String DB_PASSWORD = Config.getInstance().getDbPassword();
     protected Storage storage;
 
     private static final String UUID_1 = "uuid1";
