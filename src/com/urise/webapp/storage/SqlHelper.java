@@ -15,30 +15,30 @@ public class SqlHelper {
         this.connectionFactory = connectionFactory;
     }
 
-    public <T> T sqlHelp(String sql, SqlHelp<T> sqlHelp) {
+    public <T> T sqlHelp(String sql, Executor<T> executor) {
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
-            return sqlHelp.execute(ps, rs);
+            return executor.executor(ps, rs, sql);
         } catch (SQLException e) {
             throw new StorageException(e);
         }
     }
 
-    public interface SqlHelp<T> {
-        T execute(PreparedStatement ps, ResultSet rs) throws SQLException;
+    public interface Executor<T> {
+        T executor(PreparedStatement ps, ResultSet rs, String sql) throws SQLException;
     }
 
-    public void sqlHelps(String sql, SqlHelps sqlHelps) {
+    public void sqlHelps(String sql, Executed executed) {
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
-            sqlHelps.executes(ps);
+            executed.executed(ps, sql);
         } catch (SQLException e) {
             throw new StorageException(e);
         }
     }
 
-    public interface SqlHelps {
-        void executes(PreparedStatement ps) throws SQLException;
+    public interface Executed {
+        void executed(PreparedStatement ps, String sql) throws SQLException;
     }
 }
