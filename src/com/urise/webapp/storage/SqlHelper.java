@@ -15,29 +15,29 @@ public class SqlHelper {
         this.connectionFactory = connectionFactory;
     }
 
-    public <T> T sqlHelp(String sql, Executor<T> executor) {
+    public <T> T sqlHelp(String sql, Executable<T> executor) {
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
-            return executor.executor(ps);
+            return executor.execute(ps);
         } catch (SQLException e) {
             throw new StorageException(e);
         }
     }
 
-    public interface Executor<T> {
-        T executor(PreparedStatement ps) throws SQLException;
+    public interface Executable<T> {
+        T execute(PreparedStatement ps) throws SQLException;
     }
 
-    public void sqlHelps(String sql, Executed executed) {
+    public void sqlHelps(String sql, ExecutableTwo executor) {
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
-            executed.executed(ps);
+            executor.execute(ps);
         } catch (SQLException e) {
             throw new StorageException(e);
         }
     }
 
-    public interface Executed {
-        void executed(PreparedStatement ps) throws SQLException;
+    public interface ExecutableTwo {
+        void execute(PreparedStatement ps) throws SQLException;
     }
 }
