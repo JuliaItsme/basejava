@@ -18,27 +18,26 @@ public class SqlHelper {
     public <T> T sqlHelp(String sql, Executor<T> executor) {
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
-            ResultSet rs = ps.executeQuery();
-            return executor.executor(ps, rs, sql);
+            return executor.executor(ps);
         } catch (SQLException e) {
             throw new StorageException(e);
         }
     }
 
     public interface Executor<T> {
-        T executor(PreparedStatement ps, ResultSet rs, String sql) throws SQLException;
+        T executor(PreparedStatement ps) throws SQLException;
     }
 
     public void sqlHelps(String sql, Executed executed) {
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
-            executed.executed(ps, sql);
+            executed.executed(ps);
         } catch (SQLException e) {
             throw new StorageException(e);
         }
     }
 
     public interface Executed {
-        void executed(PreparedStatement ps, String sql) throws SQLException;
+        void executed(PreparedStatement ps) throws SQLException;
     }
 }
