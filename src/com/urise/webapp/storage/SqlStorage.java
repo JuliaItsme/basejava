@@ -2,6 +2,7 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.sql.SqlHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,20 +17,23 @@ public class SqlStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        sqlHelper.sqlHelps("INSERT INTO resume (uuid, full_name) VALUES (?,?)", (ps) -> {
+        sqlHelper.sqlHelp("INSERT INTO resume (uuid, full_name) VALUES (?,?)", (ps) -> {
             ps.setString(1, resume.getUuid());
             ps.setString(2, resume.getFullName());
             ps.execute();
+            return null;
         });
     }
 
     @Override
     public void update(Resume resume) {
-        sqlHelper.sqlHelps("UPDATE resume SET full_name = ? WHERE uuid =?", (ps) -> {
+        sqlHelper.sqlHelp("UPDATE resume SET full_name = ? WHERE uuid =?", (ps) -> {
             ps.setString(1, resume.getFullName());
             ps.setString(2, resume.getUuid());
-            ps.execute();
-
+            if (ps.executeUpdate() == 0) {
+                throw new NotExistStorageException(resume.getUuid());
+            }
+            return null;
         });
     }
 
@@ -47,9 +51,12 @@ public class SqlStorage implements Storage {
 
     @Override
     public void delete(String uuid) {
-        sqlHelper.sqlHelps("DELETE FROM resume WHERE uuid = ?", (ps) -> {
+        sqlHelper.sqlHelp("DELETE FROM resume WHERE uuid = ?", (ps) -> {
             ps.setString(1, uuid);
-            ps.execute();
+            if (ps.executeUpdate() == 0) {
+                throw new NotExistStorageException(uuid);
+            }
+            return null;
         });
     }
 
@@ -58,7 +65,7 @@ public class SqlStorage implements Storage {
         return sqlHelper.sqlHelp("SELECT count(*) FROM resume", (ps) -> {
             ResultSet rs = ps.executeQuery();
             int sum = 0;
-            while (rs.next()) {
+            if (rs.next()) {
                 sum = rs.getInt(1);
             }
             return sum;
@@ -79,6 +86,6 @@ public class SqlStorage implements Storage {
 
     @Override
     public void clear() {
-        sqlHelper.sqlHelps("DELETE FROM resume", PreparedStatement::execute);
+        sqlHelper.sqlHelp("DELETE FROM resume", PreparedStatement::execute);
     }
 }
