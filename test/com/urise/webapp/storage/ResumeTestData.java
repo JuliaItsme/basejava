@@ -5,12 +5,14 @@ import com.urise.webapp.model.*;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 
 import static com.urise.webapp.util.DateUtil.NOW;
 import static com.urise.webapp.util.DateUtil.of;
 
 public class ResumeTestData {
-    private static Resume RESUME = new Resume("uuid1", "Григорий Кислин");
+    private static final String UUID_1 = UUID.randomUUID().toString();
+    private static Resume RESUME = new Resume(UUID_1, "Григорий Кислин");
 
     /*static {
         RESUME.addContact(ContactType.PHONE_NUMBER, "+7(921)8550482");
@@ -79,6 +81,10 @@ public class ResumeTestData {
                 new Organization("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/",
                         new Organization.Position(of(1984, Month.SEPTEMBER), of(1987, Month.JUNE), "Закончил с отличием", null)))));
     }*/
+
+    public static String getUuid1() {
+        return UUID_1;
+    }
 
     public static Resume getRESUME() {
         return RESUME;
