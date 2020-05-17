@@ -14,7 +14,7 @@ public class ResumeTestData {
     private static final String UUID_1 = UUID.randomUUID().toString();
     private static Resume RESUME = new Resume(UUID_1, "Григорий Кислин");
 
-    /*static {
+    static {
         RESUME.addContact(ContactType.PHONE_NUMBER, "+7(921)8550482");
         RESUME.addContact(ContactType.SKYPE, "grigory.kislin");
         RESUME.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
@@ -22,7 +22,7 @@ public class ResumeTestData {
         RESUME.addContact(ContactType.GITHUB, "https://github.com/gkislin");
         RESUME.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
         RESUME.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
-
+/*
         RESUME.addSection(SectionType.PERSONAL, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
         RESUME.addSection(SectionType.OBJECTIVE, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры"));
         RESUME.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList(
@@ -80,7 +80,7 @@ public class ResumeTestData {
                                 new Organization.Position(of(1987, Month.SEPTEMBER), of(1993, Month.JULY), "Инженер (программист Fortran, C)", null))))),
                 new Organization("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/",
                         new Organization.Position(of(1984, Month.SEPTEMBER), of(1987, Month.JUNE), "Закончил с отличием", null)))));
-    }*/
+  */  }
 
     public static String getUuid1() {
         return UUID_1;
