@@ -2,8 +2,10 @@ package com.urise.webapp.storage;
 
 import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.sql.ExceptionUtil;
 import com.urise.webapp.sql.SqlHelper;
 
 import java.sql.*;
@@ -106,12 +108,12 @@ public class SqlStorage implements Storage {
                         " ORDER BY full_name, uuid, id",
                 (ps) -> {
                     ResultSet rs = ps.executeQuery();
-                    Map<String, Resume> map = new HashMap<>();
+                    Map<String, Resume> map = new LinkedHashMap<>();
                     while (rs.next()) {
                         String uuid = rs.getString("uuid");
-                        if (map.get(uuid) == null) {
-                            map.put(uuid, new Resume(uuid, rs.getString("full_name")));
-                        }
+                        String fullName = rs.getString("full_name");
+                        map.computeIfAbsent(uuid, resume -> { return new Resume(uuid, fullName);});
+                        //map.putIfAbsent(uuid,new Resume(uuid, rs.getString("full_name")));
                         Resume resume = map.get(uuid);
                         addContact(resume, rs);
                     }
