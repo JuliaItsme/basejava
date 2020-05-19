@@ -74,9 +74,13 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() throws Exception {
-        Resume resume = new Resume(UUID_1, "New Name");
+        Resume resume = new Resume(UUID_2, "New Name");
+        RESUME_2.addContact(ContactType.LINKEDIN, "mail1@google.com");
+        RESUME_2.addContact(ContactType.SKYPE, "NewSkype");
+        RESUME_2.addContact(ContactType.PHONE_NUMBER, "+7 921 222-22-22");
         storage.update(resume);
-        assertTrue(resume.equals(storage.get(UUID_1)));
+        System.out.println(RESUME_2.getContact(ContactType.SKYPE));
+        assertTrue(resume.equals(storage.get(UUID_2)));
     }
 
     @Test(expected = NotExistStorageException.class)
