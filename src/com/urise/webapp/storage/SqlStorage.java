@@ -112,10 +112,8 @@ public class SqlStorage implements Storage {
                     while (rs.next()) {
                         String uuid = rs.getString("uuid");
                         String fullName = rs.getString("full_name");
-                        map.computeIfAbsent(uuid, resume -> { return new Resume(uuid, fullName);});
                         //map.putIfAbsent(uuid,new Resume(uuid, rs.getString("full_name")));
-                        Resume resume = map.get(uuid);
-                        addContact(resume, rs);
+                        addContact(map.computeIfAbsent(uuid, resume -> {return new Resume(uuid, fullName);}), rs);
                     }
                     return new ArrayList<>(map.values());
                 });
