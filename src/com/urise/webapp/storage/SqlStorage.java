@@ -1,15 +1,13 @@
 package com.urise.webapp.storage;
 
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.sql.SqlHelper;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
@@ -69,7 +67,9 @@ public class SqlStorage implements Storage {
                         throw new NotExistStorageException(uuid);
                     }
                     Resume resume = new Resume(uuid, rs.getString("full_name"));
-                    addContact(resume, rs);
+                    do {
+                        addContact(resume, rs);
+                    } while (rs.next());
                     return resume;
                 });
     }
@@ -105,32 +105,32 @@ public class SqlStorage implements Storage {
                         "    ON r.uuid = c.resume_uuid " +
                         " ORDER BY full_name, uuid, id",
                 (ps) -> {
-                    List<Resume> list = new ArrayList<>();
                     ResultSet rs = ps.executeQuery();
+                    Map<String, Resume> map = new HashMap<>();
                     while (rs.next()) {
-                        Resume resume = new Resume(rs.getString("uuid"), rs.getString("full_name"));
+                        String uuid = rs.getString("uuid");
+                        if (map.get(uuid) == null) {
+                            map.put(uuid, new Resume(uuid, rs.getString("full_name")));
+                        }
+                        Resume resume = map.get(uuid);
                         addContact(resume, rs);
-                        list.add(resume);
                     }
-                    return list;
+                    return new ArrayList<>(map.values());
                 });
         return execute;
     }
 
     @Override
     public void clear() {
-        sqlHelper.execute("DELETE FROM resume ");
-        sqlHelper.execute("ALTER SEQUENCE contact_id_seq RESTART WITH 1");
+        sqlHelper.execute("DELETE FROM resume; ALTER SEQUENCE contact_id_seq RESTART WITH 1");
     }
 
     private void addContact(Resume resume, ResultSet rs) throws SQLException {
-        do {
-            String type = rs.getString("type");
-            if (type == null) break;
-            ContactType contactType = ContactType.valueOf(type);
+        String type = rs.getString("type");
+        if (type != null) {
             String value = rs.getString("value");
-            resume.addContact(contactType, value);
-        } while (rs.next());
+            resume.addContact(ContactType.valueOf(type), value);
+        }
     }
 
     private void insertContact(Resume resume, Connection conn) throws SQLException {

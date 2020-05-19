@@ -2,26 +2,51 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.*;
 
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.UUID;
-
-import static com.urise.webapp.util.DateUtil.NOW;
-import static com.urise.webapp.util.DateUtil.of;
 
 public class ResumeTestData {
     private static final String UUID_1 = UUID.randomUUID().toString();
-    private static Resume RESUME = new Resume(UUID_1, "Григорий Кислин");
+    private static final String UUID_2 = UUID.randomUUID().toString();
+    private static final String UUID_3 = UUID.randomUUID().toString();
+    private static final String UUID_4 = UUID.randomUUID().toString();
+
+    private static Resume RESUME_1 = new Resume(UUID_1, "Григорий Кислин");
+    private static Resume RESUME_2 = new Resume(UUID_2, "Федорова Федора");
+    private static Resume RESUME_3 = new Resume(UUID_3, "Иванов Иван");
+    private static Resume RESUME_4 = new Resume(UUID_4, "Петров Петр");
 
     static {
-        RESUME.addContact(ContactType.PHONE_NUMBER, "+7(921)8550482");
-        RESUME.addContact(ContactType.SKYPE, "grigory.kislin");
-        RESUME.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
-        RESUME.addContact(ContactType.LINKEDIN, "grigory.kislin");
-        RESUME.addContact(ContactType.GITHUB, "https://github.com/gkislin");
-        RESUME.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
-        RESUME.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
+        RESUME_1.addContact(ContactType.PHONE_NUMBER, "+7(921)8550482");
+        RESUME_1.addContact(ContactType.SKYPE, "grigory.kislin");
+        RESUME_1.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
+        RESUME_1.addContact(ContactType.LINKEDIN, "grigory.kislin");
+        RESUME_1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
+        RESUME_1.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
+        RESUME_1.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
+
+        RESUME_2.addContact(ContactType.PHONE_NUMBER, "+7(952)5671289");
+        RESUME_2.addContact(ContactType.SKYPE, "fedora.fedorova");
+        RESUME_2.addContact(ContactType.EMAIL, "fedorova@rambler.ru");
+        RESUME_2.addContact(ContactType.LINKEDIN, "fedora.fedorova");
+        RESUME_2.addContact(ContactType.GITHUB, "https://github.com/fedorova");
+        RESUME_2.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/012345/fedora-fedorova");
+        RESUME_2.addContact(ContactType.HOME_PAGE, "http://fedorova.ru/");
+
+        RESUME_3.addContact(ContactType.PHONE_NUMBER, "+7(911)1234567");
+        RESUME_3.addContact(ContactType.SKYPE, "ivan.ivanov");
+        RESUME_3.addContact(ContactType.EMAIL, "ivanov@mail.ru");
+        RESUME_3.addContact(ContactType.LINKEDIN, "ivan.ivanov");
+        RESUME_3.addContact(ContactType.GITHUB, "https://github.com/ivanov");
+        RESUME_3.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/012345/ivan-ivanov");
+        RESUME_3.addContact(ContactType.HOME_PAGE, "http://ivanov.ru/");
+
+        RESUME_4.addContact(ContactType.PHONE_NUMBER, "+7(965)9876543");
+        RESUME_4.addContact(ContactType.SKYPE, "petr.petrov");
+        RESUME_4.addContact(ContactType.EMAIL, "petrov@gmail.com");
+        RESUME_4.addContact(ContactType.LINKEDIN, "petr.petrov");
+        RESUME_4.addContact(ContactType.GITHUB, "https://github.com/petrov");
+        RESUME_4.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/678901/petr-petrov");
+        RESUME_4.addContact(ContactType.HOME_PAGE, "http://petrov.ru/");
 /*
         RESUME.addSection(SectionType.PERSONAL, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
         RESUME.addSection(SectionType.OBJECTIVE, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры"));
@@ -86,7 +111,31 @@ public class ResumeTestData {
         return UUID_1;
     }
 
-    public static Resume getRESUME() {
-        return RESUME;
+    public static String getUuid2() {
+        return UUID_2;
+    }
+
+    public static String getUuid3() {
+        return UUID_3;
+    }
+
+    public static String getUuid4() {
+        return UUID_4;
+    }
+
+    public static Resume getResume1() {
+        return RESUME_1;
+    }
+
+    public static Resume getResume2() {
+        return RESUME_2;
+    }
+
+    public static Resume getResume3() {
+        return RESUME_3;
+    }
+
+    public static Resume getResume4() {
+        return RESUME_4;
     }
 }
