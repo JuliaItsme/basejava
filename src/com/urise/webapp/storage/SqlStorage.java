@@ -11,6 +11,9 @@ import com.urise.webapp.sql.SqlHelper;
 import java.sql.*;
 import java.util.*;
 
+//TODO implement Section (except OrganizationSection)
+//TODO join and split listSection by '\n'
+
 public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
 
