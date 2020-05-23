@@ -29,6 +29,21 @@ public class DataStreamSerializer implements StreamSerializer {
         }
     }
 
+    @Override
+    public Resume doRead(InputStream is) throws IOException {
+        try (DataInputStream dis = new DataInputStream(is)) {
+            String uuid = dis.readUTF();
+            String fullName = dis.readUTF();
+            Resume resume = new Resume(uuid, fullName);
+            readCollection(dis, () -> resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
+            readCollection(dis, () -> {
+                SectionType sectionType = SectionType.valueOf(dis.readUTF());
+                resume.addSection(sectionType, readSections(dis, sectionType));
+            });
+            return resume;
+        }
+    }
+
     private void writeSections(DataOutputStream dos, SectionType sectionType, Section section) throws IOException {
         switch (sectionType) {
             case PERSONAL:
@@ -52,42 +67,6 @@ public class DataStreamSerializer implements StreamSerializer {
                     });
                 });
                 break;
-        }
-    }
-
-    private <T> void writeCollection(DataOutputStream dos, Collection<T> collection, WriteElement<T> writer) throws IOException {
-        dos.writeInt(collection.size());
-        for (T item : collection) {
-            writer.write(item);
-        }
-    }
-
-    @FunctionalInterface
-    private interface WriteElement<T> {
-        void write(T t) throws IOException;
-    }
-
-    private void writeCheckNull(DataOutputStream dos, String s) throws IOException {
-        dos.writeUTF(s == null ? "" : s);
-    }
-
-    private void writeLocalDate(DataOutputStream dos, LocalDate date) throws IOException {
-        dos.writeInt(date.getYear());
-        dos.writeInt(date.getMonthValue());
-    }
-
-    @Override
-    public Resume doRead(InputStream is) throws IOException {
-        try (DataInputStream dis = new DataInputStream(is)) {
-            String uuid = dis.readUTF();
-            String fullName = dis.readUTF();
-            Resume resume = new Resume(uuid, fullName);
-            readCollection(dis, () -> resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
-            readCollection(dis, () -> {
-                SectionType sectionType = SectionType.valueOf(dis.readUTF());
-                resume.addSection(sectionType, readSections(dis, sectionType));
-            });
-            return resume;
         }
     }
 
@@ -115,16 +94,18 @@ public class DataStreamSerializer implements StreamSerializer {
         }
     }
 
+    private <T> void writeCollection(DataOutputStream dos, Collection<T> collection, WriteElement<T> writer) throws IOException {
+        dos.writeInt(collection.size());
+        for (T item : collection) {
+            writer.write(item);
+        }
+    }
+
     private void readCollection(DataInputStream dis, ReadElement reader) throws IOException {
         int size = dis.readInt();
         for (int i = 0; i < size; i++) {
             reader.read();
         }
-    }
-
-    @FunctionalInterface
-    private interface ReadElement {
-        void read() throws IOException;
     }
 
     private <T> List<T> readList(DataInputStream dis, ReadItem<T> reader) throws IOException {
@@ -137,13 +118,32 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     @FunctionalInterface
+    private interface WriteElement<T> {
+        void write(T t) throws IOException;
+    }
+
+    @FunctionalInterface
+    private interface ReadElement {
+        void read() throws IOException;
+    }
+
+    @FunctionalInterface
     private interface ReadItem<T> {
         T read() throws IOException;
+    }
+
+    private void writeCheckNull(DataOutputStream dos, String s) throws IOException {
+        dos.writeUTF(s == null ? "" : s);
     }
 
     private String readCheckNull(DataInputStream dis) throws IOException {
         String str = dis.readUTF();
         return str.equals("") ? null : str;
+    }
+
+    private void writeLocalDate(DataOutputStream dos, LocalDate date) throws IOException {
+        dos.writeInt(date.getYear());
+        dos.writeInt(date.getMonthValue());
     }
 
     private LocalDate readLocalDate(DataInputStream dis) throws IOException {

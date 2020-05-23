@@ -67,6 +67,7 @@ public abstract class AbstractStorageTest {
         List<Resume> list = storage.getAllSorted();
         for (Resume r: list){
             System.out.println(r.getContacts());
+            System.out.println(r.getSections());
         }
         assertEquals(3, list.size());
         assertEquals(list, storage.getAllSorted());

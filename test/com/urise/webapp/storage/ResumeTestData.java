@@ -2,6 +2,7 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.*;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 public class ResumeTestData {
@@ -47,17 +48,17 @@ public class ResumeTestData {
         RESUME_4.addContact(ContactType.GITHUB, "https://github.com/petrov");
         RESUME_4.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/678901/petr-petrov");
         RESUME_4.addContact(ContactType.HOME_PAGE, "http://petrov.ru/");
-/*
-        RESUME.addSection(SectionType.PERSONAL, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
-        RESUME.addSection(SectionType.OBJECTIVE, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры"));
-        RESUME.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList(
+
+        RESUME_1.addSection(SectionType.PERSONAL, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
+        RESUME_1.addSection(SectionType.OBJECTIVE, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры"));
+        RESUME_1.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList(
                 "С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.",
                 "Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike.Интеграция с Twilio, DuoSecurity, Google Authenticator, Jira, Zendesk.",
                 "Налаживание процесса разработки и непрерывной интеграции ERP системы River BPM. Интеграция с 1С, Bonita BPM, CMIS, LDAP. Разработка приложения управления окружением на стеке: Scala/Play/Anorm/JQuery. Разработка SSO аутентификации и авторизации различных ERP модулей, интеграция CIFS/SMB java сервера.",
                 "Реализация c нуля Rich Internet Application приложения на стеке технологий JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Commet, HTML5, Highstock для алгоритмического трейдинга.",
                 "Создание JavaEE фреймворка для отказоустойчивого взаимодействия слабо-связанных сервисов (SOA-base архитектура, JAX-WS, JMS, AS Glassfish). Сбор статистики сервисов и информации о состоянии через систему мониторинга Nagios. Реализация онлайн клиента для администрирования и мониторинга системы по JMX (Jython/ Django).",
                 "Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.")));
-        RESUME.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList(
+        RESUME_1.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList(
                 "JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
                 "Version control: Subversion, Git, Mercury, ClearCase, Perforce",
                 "DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle,",
@@ -73,7 +74,23 @@ public class ResumeTestData {
                 "администрирование Hudson/Jenkins, Ant + custom task, SoapUI, JPublisher, Flyway, Nagios, iReport, OpenCmis, Bonita, pgBouncer.",
                 "Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования",
                 "Родной русский, английский \"upper intermediate\"")));
-        RESUME.addSection(SectionType.EXPERIENCE, new OrganizationSection(Arrays.asList(
+
+        RESUME_2.addSection(SectionType.PERSONAL, new TextSection("Студентка"));
+        RESUME_2.addSection(SectionType.OBJECTIVE, new TextSection("Креативная"));
+        RESUME_2.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("", "")));
+        RESUME_2.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("JavaSE", "Tomcat")));
+
+        RESUME_3.addSection(SectionType.PERSONAL, new TextSection("Студент"));
+        RESUME_3.addSection(SectionType.OBJECTIVE, new TextSection("Умный"));
+        RESUME_3.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("", "")));
+        RESUME_3.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("JavaEE ", "Spring")));
+
+        RESUME_4.addSection(SectionType.PERSONAL, new TextSection("Инженер"));
+        RESUME_4.addSection(SectionType.OBJECTIVE, new TextSection("Талантливый"));
+        RESUME_4.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Разработка Web приложения", "Spring")));
+        RESUME_4.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("Scala", "XML/XSD/XSLT")));
+
+/*        RESUME_1.addSection(SectionType.EXPERIENCE, new OrganizationSection(Arrays.asList(
                 new Organization("Java Online Projects", "http://javaops.ru/",
                         new Organization.Position(of(2013, Month.OCTOBER), NOW, "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок.")),
                 new Organization("Wrike", "https://www.wrike.com/",
@@ -90,7 +107,7 @@ public class ResumeTestData {
                         new Organization.Position(of(2005, Month.JANUARY), of(2007, Month.FEBRUARY), "Разработчик ПО", "Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix).")),
                 new Organization("Alcatel", "http://www.alcatel.ru/",
                         new Organization.Position(of(1997, Month.SEPTEMBER), of(2005, Month.JANUARY), "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).")))));
-        RESUME.addSection(SectionType.EDUCATION, new OrganizationSection(Arrays.asList(
+        RESUME_1.addSection(SectionType.EDUCATION, new OrganizationSection(Arrays.asList(
                 new Organization("Coursera", "https://www.coursera.org/learn/progfun1",
                         new Organization.Position(of(2013, Month.MARCH), of(2013, Month.MAY), "\t\"Functional Programming Principles in Scala\" by Martin Odersky", null)),
                 new Organization("Luxoft", "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html",
@@ -105,7 +122,8 @@ public class ResumeTestData {
                                 new Organization.Position(of(1987, Month.SEPTEMBER), of(1993, Month.JULY), "Инженер (программист Fortran, C)", null))))),
                 new Organization("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/",
                         new Organization.Position(of(1984, Month.SEPTEMBER), of(1987, Month.JUNE), "Закончил с отличием", null)))));
-  */  }
+  */
+    }
 
     public static String getUuid1() {
         return UUID_1;
