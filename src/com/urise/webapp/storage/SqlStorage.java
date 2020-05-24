@@ -14,8 +14,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.*;
 
-//TODO join and split listSection by '\n'
-
 public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
 
