@@ -77,12 +77,12 @@ public class ResumeTestData {
 
         RESUME_2.addSection(SectionType.PERSONAL, new TextSection("Студентка"));
         RESUME_2.addSection(SectionType.OBJECTIVE, new TextSection("Креативная"));
-        RESUME_2.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("", "")));
+        RESUME_2.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Разработка Web приложения", "Java Enterprise")));
         RESUME_2.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("JavaSE", "Tomcat")));
 
         RESUME_3.addSection(SectionType.PERSONAL, new TextSection("Студент"));
         RESUME_3.addSection(SectionType.OBJECTIVE, new TextSection("Умный"));
-        RESUME_3.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("", "")));
+        RESUME_3.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Многопоточность", "Налаживание процесса разработки")));
         RESUME_3.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("JavaEE ", "Spring")));
 
         RESUME_4.addSection(SectionType.PERSONAL, new TextSection("Инженер"));
