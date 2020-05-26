@@ -161,21 +161,12 @@ public class SqlStorage implements Storage {
         }
     }
 
-    private void getContact(Resume resume, ResultSet resultSet) throws SQLException {
-        String value = resultSet.getString("value");
-        if (value != null) {
-            resume.addContact(ContactType.valueOf(resultSet.getString("type")), value);
-        }
-    }
-
     private void insertSection(Resume resume, Connection connection) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO section (resume_uuid, type, value) VALUES (?,?,?)")) {
             for (Map.Entry<SectionType, Section> element : resume.getSections().entrySet()) {
                 preparedStatement.setString(1, resume.getUuid());
-
                 SectionType sectionType = element.getKey();
-
                 preparedStatement.setString(2, sectionType.name());
                 preparedStatement.setString(3, addSection(sectionType, element.getValue()));
                 preparedStatement.addBatch();
@@ -196,6 +187,13 @@ public class SqlStorage implements Storage {
             }
         }
         return null;
+    }
+
+    private void getContact(Resume resume, ResultSet resultSet) throws SQLException {
+        String value = resultSet.getString("value");
+        if (value != null) {
+            resume.addContact(ContactType.valueOf(resultSet.getString("type")), value);
+        }
     }
 
     private void getSection(Resume resume, ResultSet resultSet) throws SQLException {
