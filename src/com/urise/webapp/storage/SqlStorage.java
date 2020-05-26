@@ -138,7 +138,7 @@ public class SqlStorage implements Storage {
 
     @Override
     public void clear() {
-        sqlHelper.execute("DELETE FROM resume; ALTER SEQUENCE contact_id_seq RESTART WITH 1");
+        sqlHelper.execute("DELETE FROM resume; ALTER SEQUENCE contact_id_seq RESTART WITH 1;ALTER SEQUENCE section_id_seq RESTART WITH 1 ");
     }
 
     private void deleteType(Resume resume, Connection connection, String sql) throws SQLException {
@@ -192,8 +192,7 @@ public class SqlStorage implements Storage {
                     return ((TextSection) section).getContent();
                 case ACHIEVEMENT:
                 case QUALIFICATIONS:
-                    String str = String.join("/n", ((ListSection) section).getItems());
-                    return str;
+                    return String.join("/n", ((ListSection) section).getItems());
             }
         }
         return null;
