@@ -1,6 +1,7 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.Config;
+import com.urise.webapp.ResumeTestData;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.*;
@@ -10,7 +11,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -65,9 +65,9 @@ public abstract class AbstractStorageTest {
     @Test
     public void getAllSorted() throws Exception {
         List<Resume> list = storage.getAllSorted();
-        for (Resume r: list){
-            System.out.println(r.getContacts());
-            System.out.println(r.getSections());
+        for (Resume resume: list) {
+            System.out.println(resume.getContacts());
+            System.out.println(resume.getSections());
         }
         assertEquals(3, list.size());
         assertEquals(list, storage.getAllSorted());

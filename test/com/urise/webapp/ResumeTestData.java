@@ -1,4 +1,4 @@
-package com.urise.webapp.storage;
+package com.urise.webapp;
 
 import com.urise.webapp.model.*;
 
@@ -155,5 +155,9 @@ public class ResumeTestData {
 
     public static Resume getResume4() {
         return RESUME_4;
+    }
+
+    public static Section getSection(Resume resume, SectionType sectionType) {
+        return resume.getSection(sectionType);
     }
 }

@@ -3,9 +3,8 @@ package com.urise.webapp.storage;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.*;
 import com.urise.webapp.sql.SqlHelper;
-import com.urise.webapp.storage.serializer.DataStreamSerializer;
+import com.urise.webapp.util.JsonParser;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
@@ -25,8 +24,8 @@ public class SqlStorage implements Storage {
                         preparedStatement.setString(2, resume.getFullName());
                         preparedStatement.execute();
                     }
-                    insertContact(resume, connection);
-                    insertSection(resume, connection);
+                    insertContacts(resume, connection);
+                    insertSections(resume, connection);
                     return null;
                 }
         );
@@ -45,8 +44,8 @@ public class SqlStorage implements Storage {
                     }
                     deleteType(resume, connection, "DELETE FROM contact WHERE resume_uuid = ? ");
                     deleteType(resume, connection, "DELETE FROM section WHERE resume_uuid = ? ");
-                    insertContact(resume, connection);
-                    insertSection(resume, connection);
+                    insertContacts(resume, connection);
+                    insertSections(resume, connection);
                     return null;
                 }
         );
@@ -148,7 +147,7 @@ public class SqlStorage implements Storage {
         }
     }
 
-    private void insertContact(Resume resume, Connection connection) throws SQLException {
+    private void insertContacts(Resume resume, Connection connection) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO contact (resume_uuid, type, value) VALUES (?,?,?)")) {
             for (Map.Entry<ContactType, String> element : resume.getContacts().entrySet()) {
@@ -161,21 +160,35 @@ public class SqlStorage implements Storage {
         }
     }
 
-    private void insertSection(Resume resume, Connection connection) throws SQLException {
+    private void insertSections(Resume resume, Connection connection) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO section (resume_uuid, type, value) VALUES (?,?,?)")) {
             for (Map.Entry<SectionType, Section> element : resume.getSections().entrySet()) {
                 preparedStatement.setString(1, resume.getUuid());
-                SectionType sectionType = element.getKey();
-                preparedStatement.setString(2, sectionType.name());
-                preparedStatement.setString(3, addSection(sectionType, element.getValue()));
+                preparedStatement.setString(2, element.getKey().name());
+                preparedStatement.setString(3, JsonParser.write(element.getValue(), Section.class));
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
         }
     }
 
-    private String addSection(SectionType sectionType, Section section) throws SQLException {
+    private void getContact(Resume resume, ResultSet resultSet) throws SQLException {
+        String value = resultSet.getString("value");
+        if (value != null) {
+            resume.addContact(ContactType.valueOf(resultSet.getString("type")), value);
+        }
+    }
+
+    private void getSection(Resume resume, ResultSet resultSet) throws SQLException {
+        String value = resultSet.getString("value");
+        if (value != null) {
+            SectionType sectionType = SectionType.valueOf(resultSet.getString("type"));
+            resume.addSection(sectionType, JsonParser.read(value, Section.class));
+        }
+    }
+
+/*    private String addSection(SectionType sectionType, Section section) throws SQLException {
         if (section != null) {
             switch (sectionType) {
                 case PERSONAL:
@@ -187,13 +200,6 @@ public class SqlStorage implements Storage {
             }
         }
         return null;
-    }
-
-    private void getContact(Resume resume, ResultSet resultSet) throws SQLException {
-        String value = resultSet.getString("value");
-        if (value != null) {
-            resume.addContact(ContactType.valueOf(resultSet.getString("type")), value);
-        }
     }
 
     private void getSection(Resume resume, ResultSet resultSet) throws SQLException {
@@ -212,5 +218,5 @@ public class SqlStorage implements Storage {
                     break;
             }
         }
-    }
+    } */
 }
