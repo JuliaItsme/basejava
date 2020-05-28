@@ -1,6 +1,5 @@
 package com.urise.webapp.model;
 
-
 public enum ContactType {
     PHONE_NUMBER("Телефонный номер"),
     SKYPE("Skype") {
@@ -27,20 +26,20 @@ public enum ContactType {
             return toLink(value);
         }
     },
-    STACKOVERFLOW("Stackoverflow"){
+    STACKOVERFLOW("Stackoverflow") {
         @Override
         public String toHtml(String value) {
             return toLink(value);
         }
     },
-    HOME_PAGE("Домашняя страница"){
+    HOME_PAGE("Домашняя страница") {
         @Override
         public String toHtml(String value) {
             return toLink(value);
         }
     };
 
-    private String title;
+    private final String title;
 
     ContactType(String title) {
         this.title = title;
@@ -54,7 +53,7 @@ public enum ContactType {
         return title + ": " + value;
     }
 
-    public String toHtml(String value){
+    public String toHtml(String value) {
         return (value == null) ? "" : toHtml0(value);
     }
 
