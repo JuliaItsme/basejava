@@ -2,8 +2,13 @@ package com.urise.webapp;
 
 import com.urise.webapp.model.*;
 
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
+
+import static com.urise.webapp.util.DateUtil.NOW;
+import static com.urise.webapp.util.DateUtil.of;
 
 public class ResumeTestData {
     private static final String UUID_1 = UUID.randomUUID().toString();
@@ -17,48 +22,48 @@ public class ResumeTestData {
     private static Resume RESUME_4 = new Resume(UUID_4, "Петров Петр");
 
     static {
-        RESUME_1.addContact(ContactType.PHONE_NUMBER, "+7(921)8550482");
-        RESUME_1.addContact(ContactType.SKYPE, "grigory.kislin");
-        RESUME_1.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
-        RESUME_1.addContact(ContactType.LINKEDIN, "grigory.kislin");
-        RESUME_1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
-        RESUME_1.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
-        RESUME_1.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
+        RESUME_1.setContact(ContactType.PHONE_NUMBER, "+7(921)8550482");
+        RESUME_1.setContact(ContactType.SKYPE, "grigory.kislin");
+        RESUME_1.setContact(ContactType.EMAIL, "gkislin@yandex.ru");
+        RESUME_1.setContact(ContactType.LINKEDIN, "grigory.kislin");
+        RESUME_1.setContact(ContactType.GITHUB, "https://github.com/gkislin");
+        RESUME_1.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
+        RESUME_1.setContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
 
-        RESUME_2.addContact(ContactType.PHONE_NUMBER, "+7(952)5671289");
-        RESUME_2.addContact(ContactType.SKYPE, "fedora.fedorova");
-        RESUME_2.addContact(ContactType.EMAIL, "fedorova@rambler.ru");
-        RESUME_2.addContact(ContactType.LINKEDIN, "fedora.fedorova");
-        RESUME_2.addContact(ContactType.GITHUB, "https://github.com/fedorova");
-        RESUME_2.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/012345/fedora-fedorova");
-        RESUME_2.addContact(ContactType.HOME_PAGE, "http://fedorova.ru/");
+        RESUME_2.setContact(ContactType.PHONE_NUMBER, "+7(952)5671289");
+        RESUME_2.setContact(ContactType.SKYPE, "fedora.fedorova");
+        RESUME_2.setContact(ContactType.EMAIL, "fedorova@rambler.ru");
+        RESUME_2.setContact(ContactType.LINKEDIN, "fedora.fedorova");
+        RESUME_2.setContact(ContactType.GITHUB, "https://github.com/fedorova");
+        RESUME_2.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/012345/fedora-fedorova");
+        RESUME_2.setContact(ContactType.HOME_PAGE, "http://fedorova.ru/");
 
-        RESUME_3.addContact(ContactType.PHONE_NUMBER, "+7(911)1234567");
-        RESUME_3.addContact(ContactType.SKYPE, "ivan.ivanov");
-        RESUME_3.addContact(ContactType.EMAIL, "ivanov@mail.ru");
-        RESUME_3.addContact(ContactType.LINKEDIN, "ivan.ivanov");
-        RESUME_3.addContact(ContactType.GITHUB, "https://github.com/ivanov");
-        RESUME_3.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/012345/ivan-ivanov");
-        RESUME_3.addContact(ContactType.HOME_PAGE, "http://ivanov.ru/");
+        RESUME_3.setContact(ContactType.PHONE_NUMBER, "+7(911)1234567");
+        RESUME_3.setContact(ContactType.SKYPE, "ivan.ivanov");
+        RESUME_3.setContact(ContactType.EMAIL, "ivanov@mail.ru");
+        RESUME_3.setContact(ContactType.LINKEDIN, "ivan.ivanov");
+        RESUME_3.setContact(ContactType.GITHUB, "https://github.com/ivanov");
+        RESUME_3.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/012345/ivan-ivanov");
+        RESUME_3.setContact(ContactType.HOME_PAGE, "http://ivanov.ru/");
 
-        RESUME_4.addContact(ContactType.PHONE_NUMBER, "+7(965)9876543");
-        RESUME_4.addContact(ContactType.SKYPE, "petr.petrov");
-        RESUME_4.addContact(ContactType.EMAIL, "petrov@gmail.com");
-        RESUME_4.addContact(ContactType.LINKEDIN, "petr.petrov");
-        RESUME_4.addContact(ContactType.GITHUB, "https://github.com/petrov");
-        RESUME_4.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/678901/petr-petrov");
-        RESUME_4.addContact(ContactType.HOME_PAGE, "http://petrov.ru/");
+        RESUME_4.setContact(ContactType.PHONE_NUMBER, "+7(965)9876543");
+        RESUME_4.setContact(ContactType.SKYPE, "petr.petrov");
+        RESUME_4.setContact(ContactType.EMAIL, "petrov@gmail.com");
+        RESUME_4.setContact(ContactType.LINKEDIN, "petr.petrov");
+        RESUME_4.setContact(ContactType.GITHUB, "https://github.com/petrov");
+        RESUME_4.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/678901/petr-petrov");
+        RESUME_4.setContact(ContactType.HOME_PAGE, "http://petrov.ru/");
 
-        RESUME_1.addSection(SectionType.PERSONAL, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
-        RESUME_1.addSection(SectionType.OBJECTIVE, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры"));
-        RESUME_1.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList(
+        RESUME_1.setSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры"));
+        RESUME_1.setSection(SectionType.OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям"));
+        RESUME_1.setSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList(
                 "С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.",
                 "Реализация двухфакторной аутентификации для онлайн платформы управления проектами Wrike.Интеграция с Twilio, DuoSecurity, Google Authenticator, Jira, Zendesk.",
                 "Налаживание процесса разработки и непрерывной интеграции ERP системы River BPM. Интеграция с 1С, Bonita BPM, CMIS, LDAP. Разработка приложения управления окружением на стеке: Scala/Play/Anorm/JQuery. Разработка SSO аутентификации и авторизации различных ERP модулей, интеграция CIFS/SMB java сервера.",
                 "Реализация c нуля Rich Internet Application приложения на стеке технологий JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Commet, HTML5, Highstock для алгоритмического трейдинга.",
                 "Создание JavaEE фреймворка для отказоустойчивого взаимодействия слабо-связанных сервисов (SOA-base архитектура, JAX-WS, JMS, AS Glassfish). Сбор статистики сервисов и информации о состоянии через систему мониторинга Nagios. Реализация онлайн клиента для администрирования и мониторинга системы по JMX (Jython/ Django).",
                 "Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.")));
-        RESUME_1.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList(
+        RESUME_1.setSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList(
                 "JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
                 "Version control: Subversion, Git, Mercury, ClearCase, Perforce",
                 "DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle,",
@@ -75,22 +80,22 @@ public class ResumeTestData {
                 "Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования",
                 "Родной русский, английский \"upper intermediate\"")));
 
-        RESUME_2.addSection(SectionType.PERSONAL, new TextSection("Студентка"));
-        RESUME_2.addSection(SectionType.OBJECTIVE, new TextSection("Креативная"));
-        RESUME_2.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Разработка Web приложения", "Java Enterprise")));
-        RESUME_2.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("JavaSE", "Tomcat")));
+        RESUME_2.setSection(SectionType.PERSONAL, new TextSection("Креативная"));
+        RESUME_2.setSection(SectionType.OBJECTIVE, new TextSection("Студентка"));
+        RESUME_2.setSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Разработка Web приложения", "Java Enterprise")));
+        RESUME_2.setSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("JavaSE", "Tomcat")));
 
-        RESUME_3.addSection(SectionType.PERSONAL, new TextSection("Студент"));
-        RESUME_3.addSection(SectionType.OBJECTIVE, new TextSection("Умный"));
-        RESUME_3.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Многопоточность", "Налаживание процесса разработки")));
-        RESUME_3.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("JavaEE ", "Spring")));
+        RESUME_3.setSection(SectionType.PERSONAL, new TextSection("Умный"));
+        RESUME_3.setSection(SectionType.OBJECTIVE, new TextSection("Студент"));
+        RESUME_3.setSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Многопоточность", "Налаживание процесса разработки")));
+        RESUME_3.setSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("JavaEE ", "Spring")));
 
-        RESUME_4.addSection(SectionType.PERSONAL, new TextSection("Инженер"));
-        RESUME_4.addSection(SectionType.OBJECTIVE, new TextSection("Талантливый"));
-        RESUME_4.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Разработка Web приложения", "Spring")));
-        RESUME_4.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("Scala", "XML/XSD/XSLT")));
+        RESUME_4.setSection(SectionType.PERSONAL, new TextSection("Талантливый"));
+        RESUME_4.setSection(SectionType.OBJECTIVE, new TextSection("Инженер"));
+        RESUME_4.setSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Разработка Web приложения", "Spring")));
+        RESUME_4.setSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("Scala", "XML/XSD/XSLT")));
 
-/*        RESUME_1.addSection(SectionType.EXPERIENCE, new OrganizationSection(Arrays.asList(
+        RESUME_1.setSection(SectionType.EXPERIENCE, new OrganizationSection(Arrays.asList(
                 new Organization("Java Online Projects", "http://javaops.ru/",
                         new Organization.Position(of(2013, Month.OCTOBER), NOW, "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок.")),
                 new Organization("Wrike", "https://www.wrike.com/",
@@ -107,7 +112,7 @@ public class ResumeTestData {
                         new Organization.Position(of(2005, Month.JANUARY), of(2007, Month.FEBRUARY), "Разработчик ПО", "Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix).")),
                 new Organization("Alcatel", "http://www.alcatel.ru/",
                         new Organization.Position(of(1997, Month.SEPTEMBER), of(2005, Month.JANUARY), "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).")))));
-        RESUME_1.addSection(SectionType.EDUCATION, new OrganizationSection(Arrays.asList(
+        RESUME_1.setSection(SectionType.EDUCATION, new OrganizationSection(Arrays.asList(
                 new Organization("Coursera", "https://www.coursera.org/learn/progfun1",
                         new Organization.Position(of(2013, Month.MARCH), of(2013, Month.MAY), "\t\"Functional Programming Principles in Scala\" by Martin Odersky", null)),
                 new Organization("Luxoft", "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html",
@@ -122,7 +127,6 @@ public class ResumeTestData {
                                 new Organization.Position(of(1987, Month.SEPTEMBER), of(1993, Month.JULY), "Инженер (программист Fortran, C)", null))))),
                 new Organization("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/",
                         new Organization.Position(of(1984, Month.SEPTEMBER), of(1987, Month.JUNE), "Закончил с отличием", null)))));
-  */
     }
 
     public static String getUuid1() {
